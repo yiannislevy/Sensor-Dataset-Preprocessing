@@ -28,7 +28,7 @@ A robust data preprocessing pipeline designed to convert raw accelerometer, gyro
 
 ## Installation
 
-Clone the repository:
+Clone the repository in the dataset folder:
 
 \```bash
 git clone https://github.com/yiannislevy/Sensor-Dataset-Preprocessing.git 
