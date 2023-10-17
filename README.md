@@ -1,4 +1,5 @@
 # Sensor Dataset Preprocessing
+
 A robust data preprocessing pipeline designed to convert raw accelerometer, gyroscope, and scale sensor data into a machine learning-ready dataset.
 
 ## Features
@@ -7,25 +8,43 @@ A robust data preprocessing pipeline designed to convert raw accelerometer, gyro
 - **Eating Period Identification**: Identifies eating periods based on accelerometer, gyroscope, and scale data.
 - **Average Sampling Interval Computation**: Calculates the average sampling interval for accelerometer and gyroscope data.
 - **Data Interpolation**: Interpolates scale data based on the minimum average interval from accelerometer and gyroscope data.
-- **Data Saving**: Saves all processed data in a structured directory.
+- **Data Saving**: Saves all processed data in both CSV and binary formats in a structured directory.
+- **Folder Navigation**: Allows for folder selection through a GUI.
+- **Data Check**: Skips processing for subjects whose data have already been processed.
+
+## Directory Structure
+
+## Directory Structure
+
+- `dataset_folder/`
+  - `raw/`
+    - `subject_id/`
+      - `accelerometer_data.bin` (can be multiple, they will be concatenated)
+      - `gyroscope_data.bin` (can be multiple, they will be concatenated)
+      - `scale_data.txt`
+
+
+
 
 ## Installation
 
 Clone the repository:
 
-\`\`\`bash
+\```bash
 git clone https://github.com/yiannislevy/Sensor-Dataset-Preprocessing.git 
-\`\`\`
+\```
 
 ## Usage
 
-1. Place the raw sensor data and scale data in the designated folders.
-2. Modify the `subject_path` and `output_path` variables in the main pipeline script to point to the raw data folder and the folder where you want the processed data saved.
-3. Run the main pipeline script:
+1. Launch the script. A GUI window will appear to select the dataset folder.
+2. The script will process each subject's data in the dataset, saving it in a structured directory under `processed/csv` and `processed/binary`.
+3. If processed data for a subject already exists, the script will skip to the next subject.
 
-\`\`\`bash
+Run the main pipeline script:
+
+\```bash
 python main_pipeline.py
-\`\`\`
+\```
 
 ## Dependencies
 
@@ -33,3 +52,4 @@ python main_pipeline.py
 - Pandas
 - NumPy
 - SciPy
+- Tkinter
