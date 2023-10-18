@@ -5,9 +5,9 @@ A robust data preprocessing pipeline designed to convert raw accelerometer, gyro
 ## Features
 
 - **Data Reading**: Reads raw sensor data files (accelerometer and gyroscope) and scale data.
-- **Eating Period Identification**: Identifies eating periods based on accelerometer, gyroscope, and scale data.
+- **Eating Period Identification**: Identifies eating periods based on accelerometer, gyroscope, and scale data, discarding eating-irrelevant previous activity.
 - **Average Sampling Interval Computation**: Calculates the average sampling interval for accelerometer and gyroscope data.
-- **Data Interpolation**: Interpolates scale data based on the minimum average interval from accelerometer and gyroscope data.
+- **Data Interpolation**: Interpolates scale data based on given interval, one for accelerometer's and one for gyroscope's.
 - **Data Saving**: Saves all processed data in both CSV and binary formats in a structured directory.
 - **Folder Navigation**: Allows for folder selection through a GUI.
 - **Data Check**: Skips processing for subjects whose data have already been processed.
@@ -21,8 +21,8 @@ A robust data preprocessing pipeline designed to convert raw accelerometer, gyro
     - `subject_id/`
       - `accelerometer_data.bin` (can be multiple, they will be concatenated)
       - `gyroscope_data.bin` (can be multiple, they will be concatenated)
-      - `scale_data.txt`
-
+      - `scale_data_accelerometer.txt`
+      - `scale_data_gyroscope.txt`
 
 
 
