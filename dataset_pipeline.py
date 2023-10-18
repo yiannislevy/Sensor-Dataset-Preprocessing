@@ -86,8 +86,17 @@ def compute_avg_interval(eating_period_imu):
 
     return avg_interval
 
+# 4.5 Downsample IMU Data with highest sampling rate to the average sampling interval of the lowest sampling rate
+# def resample_imu_data(imu_data, target_avg_interval):
+#     imu_data.set_index('Timestamp', inplace=True)
+#     imu_data_resampled = imu_data.resample(f"{int(target_avg_interval)}ms").mean()
+#     # imu_data_resampled.interpolate(inplace=True)  # Interpolate missing values
+#     imu_data_resampled.dropna(inplace=True)  # Drop rows with NaN values, which may include NaT in the Timestamp
+#     imu_data_resampled.reset_index(inplace=True)
+#     return imu_data_resampled
+
 # 5. Interpolate Scale Data
-def interpolate_scale_data(scale_data, scale_end_time, min_avg_interval):
+def interpolate_scale_data(scale_data, avg_interval):
     scale_data_with_time = scale_data.reset_index().rename(columns={'time': 'Timestamp'})
     original_time_vector_unix = scale_data_with_time['Timestamp'].astype('datetime64[s]').view('int64') // 1e9
 
@@ -100,7 +109,7 @@ def interpolate_scale_data(scale_data, scale_end_time, min_avg_interval):
     start_time = sorted_original_time_vector_unix.iloc[0]
     end_time = sorted_original_time_vector_unix.iloc[-1]
 
-    new_time_vector = np.arange(start_time, end_time, min_avg_interval / 1000)
+    new_time_vector = np.arange(start_time, end_time, avg_interval / 1000)
     new_time_vector_datetime = pd.to_datetime(new_time_vector, unit='s')
 
     interpolating_function = interp1d(sorted_original_time_vector_unix, scale_data_values, kind='linear', fill_value='extrapolate')
@@ -111,7 +120,7 @@ def interpolate_scale_data(scale_data, scale_end_time, min_avg_interval):
     return interpolated_scale_data
 
 # 6. Save Processed Data
-def save_processed_data(output_path, subject_id, eating_period_acc, eating_period_gyro, interpolated_scale_data):
+def save_processed_data(output_path, subject_id, eating_period_acc, eating_period_gyro, interpolated_scale_data_acc, interpolated_scale_data_gyro):
     csv_dir = os.path.join(output_path, 'csv', subject_id)
     binary_dir = os.path.join(output_path, 'binary', subject_id)
 
@@ -122,7 +131,8 @@ def save_processed_data(output_path, subject_id, eating_period_acc, eating_perio
     # Save as CSV
     eating_period_acc.to_csv(os.path.join(csv_dir, 'accelerometer_processed.csv'))
     eating_period_gyro.to_csv(os.path.join(csv_dir, 'gyroscope_processed.csv'))
-    interpolated_scale_data.to_csv(os.path.join(csv_dir, 'scale_processed.csv'))
+    interpolated_scale_data_acc.to_csv(os.path.join(csv_dir, 'scale_processed_accelerometer.csv'))
+    interpolated_scale_data_gyro.to_csv(os.path.join(csv_dir, 'scale_processed_gyroscope.csv'))
 
     custom_dtype = np.dtype([
         ("x", ">f"),
@@ -137,9 +147,15 @@ def save_processed_data(output_path, subject_id, eating_period_acc, eating_perio
             dtype=custom_dtype)
         array_to_save.tofile(os.path.join(binary_dir, filename))
 
-    scale_array_to_save = np.array([(row.Interpolated_Weight, row.Timestamp.timestamp()) for index, row in interpolated_scale_data.iterrows()],
-                                   dtype=[("grams", ">f"), ("time", ">i8")])
-    scale_array_to_save.tofile(os.path.join(binary_dir, 'scale_processed.bin'))
+    scale_array_to_save_acc = np.array(
+        [(row.Interpolated_Weight, row.Timestamp.timestamp()) for index, row in interpolated_scale_data_acc.iterrows()],
+        dtype=[("grams", ">f"), ("time", ">i8")])
+    scale_array_to_save_acc.tofile(os.path.join(binary_dir, 'scale_processed_accelerometer.bin'))
+
+    scale_array_to_save_gyro = np.array(
+        [(row.Interpolated_Weight, row.Timestamp.timestamp()) for index, row in interpolated_scale_data_gyro.iterrows()],
+        dtype=[("grams", ">f"), ("time", ">i8")])
+    scale_array_to_save_gyro.tofile(os.path.join(binary_dir, 'scale_processed_gyroscope.bin'))
 
 
 
@@ -191,9 +207,21 @@ for subject_id in subject_dirs:
     avg_interval_acc = compute_avg_interval(eating_period_acc)
     avg_interval_gyro = compute_avg_interval(eating_period_gyro)
 
-    # Step 5: Interpolate Scale Data
-    min_avg_interval = min(avg_interval_acc, avg_interval_gyro)
-    interpolated_scale_data = interpolate_scale_data(scale_data, imu_end_time, min_avg_interval)
+    # # New Step: Resample the IMU data with the higher sampling rate to match the other
+    # if avg_interval_acc < avg_interval_gyro:
+    #     # Resample accelerometer data to match gyroscope interval
+    #     eating_period_acc = resample_imu_data(eating_period_acc, avg_interval_gyro)
+    # else:
+    #     # Resample gyroscope data to match accelerometer interval
+    #     eating_period_gyro = resample_imu_data(eating_period_gyro, avg_interval_acc)
+
+    # Step 5: Interpolate Scale Data (twice, once for each IMU sensor)
+    interpolated_scale_data_acc = interpolate_scale_data(scale_data, avg_interval_acc)
+    interpolated_scale_data_gyro = interpolate_scale_data(scale_data, avg_interval_gyro)
+
+    min_avg_interval = max(avg_interval_acc, avg_interval_gyro)
+    interpolated_scale_data = interpolate_scale_data(scale_data, min_avg_interval)
 
     # Step 6: Save Processed Data
-    save_processed_data(output_path, subject_id, eating_period_acc, eating_period_gyro, interpolated_scale_data)
+    save_processed_data(output_path, subject_id, eating_period_acc, eating_period_gyro, interpolated_scale_data_acc,
+                        interpolated_scale_data_gyro)
