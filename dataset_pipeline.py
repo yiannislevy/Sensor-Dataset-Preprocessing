@@ -7,6 +7,11 @@ from tkinter import filedialog
 from tkinter import Tk
 import pickle
 
+
+# ----------------------------------------------------------------------------------------------
+# ------------------------------------- Functions ----------------------------------------------
+# ----------------------------------------------------------------------------------------------
+
 # 1. Read IMU Data
 def read_sensor_data(path, sensor_type):
     files = [f for f in os.listdir(path) if f.endswith('.bin') and sensor_type in f]
@@ -40,7 +45,7 @@ def read_scale_data(path, stop_time):
     for file in files:
         file_path = os.path.join(path, file)
         weights = pd.read_csv(file_path, header=None, names=['weight'])
-        start_time = stop_time - timedelta(seconds=len(weights)-1)  # calculate start time based on stop time and number of weight data points
+        start_time = stop_time - timedelta(seconds=len(weights) - 1)
         time = pd.date_range(start=start_time, end=stop_time, periods=len(weights))  # create date range
         weights['time'] = time
         weights = weights.set_index('time')
@@ -68,7 +73,7 @@ def identify_eating_period(imu_data, scale_data, scale_end_time):
     eating_period_imu = imu_data[
         (imu_data['Timestamp'] >= eating_start_time_imu) &
         (imu_data['Timestamp'] <= eating_end_time_imu)
-    ]
+        ]
 
     return eating_period_imu
 
@@ -86,7 +91,8 @@ def compute_avg_interval(eating_period_imu):
 
     return avg_interval
 
-# 4.5 Downsample IMU Data with highest sampling rate to the average sampling interval of the lowest sampling rate
+
+# 4.5 Downsample IMU Data with the highest sampling rate to the average sampling interval of the lowest sampling rate
 # def resample_imu_data(imu_data, target_avg_interval):
 #     imu_data.set_index('Timestamp', inplace=True)
 #     imu_data_resampled = imu_data.resample(f"{int(target_avg_interval)}ms").mean()
@@ -112,15 +118,19 @@ def interpolate_scale_data(scale_data, avg_interval):
     new_time_vector = np.arange(start_time, end_time, avg_interval / 1000)
     new_time_vector_datetime = pd.to_datetime(new_time_vector, unit='s')
 
-    interpolating_function = interp1d(sorted_original_time_vector_unix, scale_data_values, kind='linear', fill_value='extrapolate')
+    interpolating_function = interp1d(sorted_original_time_vector_unix, scale_data_values, kind='linear',
+                                      fill_value='extrapolate')
     interpolated_values = interpolating_function(new_time_vector)
 
-    interpolated_scale_data = pd.DataFrame({'Timestamp': new_time_vector_datetime, 'Interpolated_Weight': interpolated_values})
+    interpolated_scale_data = pd.DataFrame(
+        {'Timestamp': new_time_vector_datetime, 'Interpolated_Weight': interpolated_values})
 
     return interpolated_scale_data
 
+
 # 6. Save Processed Data
-def save_processed_data(output_path, subject_id, eating_period_acc, eating_period_gyro, interpolated_scale_data_acc, interpolated_scale_data_gyro):
+def save_processed_data(output_path, subject_id, eating_period_acc, eating_period_gyro, interpolated_scale_data_acc,
+                        interpolated_scale_data_gyro):
     csv_dir = os.path.join(output_path, 'csv', subject_id)
     binary_dir = os.path.join(output_path, 'binary', subject_id)
 
@@ -141,7 +151,8 @@ def save_processed_data(output_path, subject_id, eating_period_acc, eating_perio
         ("time", ">i8"),
     ])
 
-    for df, filename in zip([eating_period_acc, eating_period_gyro], ['accelerometer_processed.bin', 'gyroscope_processed.bin']):
+    for df, filename in zip([eating_period_acc, eating_period_gyro],
+                            ['accelerometer_processed.bin', 'gyroscope_processed.bin']):
         array_to_save = np.array(
             [(row.x, row.y, row.z, row.Timestamp.timestamp()) for index, row in df.iterrows()],
             dtype=custom_dtype)
@@ -153,19 +164,25 @@ def save_processed_data(output_path, subject_id, eating_period_acc, eating_perio
     scale_array_to_save_acc.tofile(os.path.join(binary_dir, 'scale_processed_accelerometer.bin'))
 
     scale_array_to_save_gyro = np.array(
-        [(row.Interpolated_Weight, row.Timestamp.timestamp()) for index, row in interpolated_scale_data_gyro.iterrows()],
+        [(row.Interpolated_Weight, row.Timestamp.timestamp()) for index, row in
+         interpolated_scale_data_gyro.iterrows()],
         dtype=[("grams", ">f"), ("time", ">i8")])
     scale_array_to_save_gyro.tofile(os.path.join(binary_dir, 'scale_processed_gyroscope.bin'))
 
 
+# ----------------------------------------------------------------------------------------------
+# -------------------------------------------- MAIN --------------------------------------------
+# ----------------------------------------------------------------------------------------------
 
 # Open folder dialog for selecting dataset folder
 root = Tk()
 root.withdraw()
 dataset_path = filedialog.askdirectory(title="Select the dataset folder")
+root.destroy()
 
 # Loop through each subject's folder
-subject_dirs = [str(d) for d in os.listdir(dataset_path + '/raw') if os.path.isdir(os.path.join(dataset_path + '/raw', d))]
+subject_dirs = [str(d) for d in os.listdir(dataset_path + '/raw') if
+                os.path.isdir(os.path.join(dataset_path + '/raw', d))]
 for subject_id in subject_dirs:
 
     output_path_csv = os.path.join(dataset_path, 'processed', 'csv', subject_id)
@@ -174,14 +191,17 @@ for subject_id in subject_dirs:
     # Check if processed files already exist
     acc_csv_file = os.path.join(output_path_csv, 'accelerometer_processed.csv')
     gyro_csv_file = os.path.join(output_path_csv, 'gyroscope_processed.csv')
-    scale_csv_file = os.path.join(output_path_csv, 'scale_processed.csv')
+    scale_csv_file_acc = os.path.join(output_path_csv, 'scale_processed_accelerometer.csv')
+    scale_csv_file_gyro = os.path.join(output_path_csv, 'scale_processed_gyroscope.csv')
 
     acc_binary_file = os.path.join(output_path_binary, 'accelerometer_processed.bin')
     gyro_binary_file = os.path.join(output_path_binary, 'gyroscope_processed.bin')
-    scale_binary_file = os.path.join(output_path_binary, 'scale_processed.bin')
+    scale_binary_file_acc = os.path.join(output_path_binary, 'scale_processed_accelerometer.bin')
+    scale_binary_file_gyro = os.path.join(output_path_binary, 'scale_processed_gyroscope.bin')
 
     if all(os.path.exists(file) for file in
-           [acc_csv_file, gyro_csv_file, scale_csv_file, acc_binary_file, gyro_binary_file, scale_binary_file]):
+           [acc_csv_file, gyro_csv_file, scale_csv_file_acc, scale_csv_file_gyro, acc_binary_file, gyro_binary_file,
+            scale_binary_file_acc, scale_binary_file_gyro]):
         print(f"Processed data for subject {subject_id} already exists. Skipping.")
         continue
 
