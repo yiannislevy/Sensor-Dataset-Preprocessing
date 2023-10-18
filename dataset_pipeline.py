@@ -111,8 +111,7 @@ def interpolate_scale_data(scale_data, scale_end_time, min_avg_interval):
     return interpolated_scale_data
 
 # 6. Save Processed Data
-def save_processed_data(output_path, subject_id, acc_data, gyro_data, scale_data):
-    # Create CSV and binary directories
+def save_processed_data(output_path, subject_id, eating_period_acc, eating_period_gyro, interpolated_scale_data):
     csv_dir = os.path.join(output_path, 'csv', subject_id)
     binary_dir = os.path.join(output_path, 'binary', subject_id)
 
@@ -120,18 +119,29 @@ def save_processed_data(output_path, subject_id, acc_data, gyro_data, scale_data
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-    # Save in CSV
-    acc_data.to_csv(os.path.join(csv_dir, 'accelerometer_processed.csv'), index=False)
-    gyro_data.to_csv(os.path.join(csv_dir, 'gyroscope_processed.csv'), index=False)
-    scale_data.to_csv(os.path.join(csv_dir, 'scale_processed.csv'), index=False)
+    # Save as CSV
+    eating_period_acc.to_csv(os.path.join(csv_dir, 'accelerometer_processed.csv'))
+    eating_period_gyro.to_csv(os.path.join(csv_dir, 'gyroscope_processed.csv'))
+    interpolated_scale_data.to_csv(os.path.join(csv_dir, 'scale_processed.csv'))
 
-    # Save in binary (pickle)
-    with open(os.path.join(binary_dir, 'accelerometer_processed.pkl'), 'wb') as f:
-        pickle.dump(acc_data, f)
-    with open(os.path.join(binary_dir, 'gyroscope_processed.pkl'), 'wb') as f:
-        pickle.dump(gyro_data, f)
-    with open(os.path.join(binary_dir, 'scale_processed.pkl'), 'wb') as f:
-        pickle.dump(scale_data, f)
+    custom_dtype = np.dtype([
+        ("x", ">f"),
+        ("y", ">f"),
+        ("z", ">f"),
+        ("time", ">i8"),
+    ])
+
+    for df, filename in zip([eating_period_acc, eating_period_gyro], ['accelerometer_processed.bin', 'gyroscope_processed.bin']):
+        array_to_save = np.array(
+            [(row.x, row.y, row.z, row.Timestamp.timestamp()) for index, row in df.iterrows()],
+            dtype=custom_dtype)
+        array_to_save.tofile(os.path.join(binary_dir, filename))
+
+    scale_array_to_save = np.array([(row.Interpolated_Weight, row.Timestamp.timestamp()) for index, row in interpolated_scale_data.iterrows()],
+                                   dtype=[("grams", ">f"), ("time", ">i8")])
+    scale_array_to_save.tofile(os.path.join(binary_dir, 'scale_processed.bin'))
+
+
 
 # Open folder dialog for selecting dataset folder
 root = Tk()
@@ -145,11 +155,17 @@ for subject_id in subject_dirs:
     output_path_csv = os.path.join(dataset_path, 'processed', 'csv', subject_id)
     output_path_binary = os.path.join(dataset_path, 'processed', 'binary', subject_id)
 
-    acc_csv_file = os.path.join(output_path_csv, 'accelerometer_processed.csv')
-    acc_binary_file = os.path.join(output_path_binary, 'accelerometer_processed.pkl')
-
     # Check if processed files already exist
-    if os.path.exists(acc_csv_file) and os.path.exists(acc_binary_file):
+    acc_csv_file = os.path.join(output_path_csv, 'accelerometer_processed.csv')
+    gyro_csv_file = os.path.join(output_path_csv, 'gyroscope_processed.csv')
+    scale_csv_file = os.path.join(output_path_csv, 'scale_processed.csv')
+
+    acc_binary_file = os.path.join(output_path_binary, 'accelerometer_processed.bin')
+    gyro_binary_file = os.path.join(output_path_binary, 'gyroscope_processed.bin')
+    scale_binary_file = os.path.join(output_path_binary, 'scale_processed.bin')
+
+    if all(os.path.exists(file) for file in
+           [acc_csv_file, gyro_csv_file, scale_csv_file, acc_binary_file, gyro_binary_file, scale_binary_file]):
         print(f"Processed data for subject {subject_id} already exists. Skipping.")
         continue
 
