@@ -1,6 +1,6 @@
 # Sensor Dataset Preprocessing
 
-A robust data preprocessing pipeline designed to convert raw accelerometer, gyroscope, and scale sensor data into a machine learning-ready dataset.
+A data preprocessing pipeline designed to convert raw accelerometer, gyroscope, and scale sensor data into a machine learning-ready dataset.
 
 ## Features
 
@@ -14,16 +14,24 @@ A robust data preprocessing pipeline designed to convert raw accelerometer, gyro
 
 ## Directory Structure
 
-## Directory Structure
-
 - `dataset_folder/`
   - `raw/`
     - `subject_id/`
       - `accelerometer_data.bin` (can be multiple, they will be concatenated)
       - `gyroscope_data.bin` (can be multiple, they will be concatenated)
-      - `scale_data_accelerometer.txt`
-      - `scale_data_gyroscope.txt`
-
+      - `scale_data.txt`
+  - `processed/`
+    - `subject_id/`
+        - `binary/`
+          - `accelerometer_data.bin`
+          - `gyroscope_data.bin`
+          - `scale_data_accelerometer.bin`
+          - `scale_data_gyroscope.bin`
+        - `csv/`
+          - `accelerometer_data.csv`
+          - `gyroscope_data.csv`
+          - `scale_data_accelerometer.csv`
+          - `scale_data_gyroscope.csv`
 
 
 ## Installation
