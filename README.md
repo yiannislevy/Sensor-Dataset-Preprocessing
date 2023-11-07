@@ -1,63 +1,90 @@
 # Sensor Dataset Preprocessing
 
-A data preprocessing pipeline designed to convert raw accelerometer, gyroscope, and scale sensor data into a machine learning-ready dataset.
+This repository contains a comprehensive pipeline for preprocessing sensor and weight data, specifically designed for accelerometer and gyroscope binary data and weight from a scale under plate, for use in machine learning models.
 
 ## Features
 
-- **Data Reading**: Reads raw sensor data files (accelerometer and gyroscope) and scale data.
-- **Eating Period Identification**: Identifies eating periods based on accelerometer, gyroscope, and scale data, discarding eating-irrelevant previous activity.
-- **Average Sampling Interval Computation**: Calculates the average sampling interval for accelerometer and gyroscope data.
-- **Data Interpolation**: Interpolates scale data based on given interval, one for accelerometer's and one for gyroscope's.
-- **Data Saving**: Saves all processed data in both CSV and binary formats in a structured directory.
-- **Folder Navigation**: Allows for folder selection through a GUI.
-- **Data Check**: Skips processing for subjects whose data have already been processed.
+- **Data Loading and Saving**: Efficiently reads and writes sensor data.
+- **Preprocessing**: Includes resampling, median filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects.
+- **Inspection and Analysis**: Offers statistical analysis and evaluation tools for quality assurance.
+- **Visualization**: Provides utilities for visualizing data trends and anomalies.
+- **Variants**: Contains alternative methods for preprocessing steps, allowing for method comparison and selection.
 
 ## Directory Structure
 
-- `dataset_folder/`
-  - `raw/`
-    - `subject_id/`
-      - `accelerometer_data.bin` (can be multiple, they will be concatenated)
-      - `gyroscope_data.bin` (can be multiple, they will be concatenated)
-      - `scale_data.txt`
-  - `processed/`
-    - `subject_id/`
-        - `binary/`
-          - `accelerometer_data.bin`
-          - `gyroscope_data.bin`
-          - `scale_data_accelerometer.bin`
-          - `scale_data_gyroscope.bin`
-        - `csv/`
-          - `accelerometer_data.csv`
-          - `gyroscope_data.csv`
-          - `scale_data_accelerometer.csv`
-          - `scale_data_gyroscope.csv`
-
+- `config/`: Configuration files in JSON format.
+- `data/`: Directory for raw and processed data storage.
+  - `raw/`: Raw data organized by subject.
+    - `1/`, `2/`, `3/`, ...: Subject folders named by ID.
+      - `timestamp_accelerometer.bin`: Raw accelerometer data files, where timestamp is the file creation time in Unix time.
+      - `timestamp_gyroscope.bin`: Raw gyroscope data files, where timestamp is the file creation time in Unix time.
+      - `weight_time.txt`: Weight measurements in text format, where time is in typical time format (YYYYMMDD_HHMMSS).
+  - `processed/`: Processed data organized by subject.
+    - `1/`, `2/`, `3/`, ...: Subject folders named by ID.
+      - `combined_data.parquet`: Processed data in Parquet format.
+- `docs/`: Additional documentation and notes.
+- `notebooks/`: Jupyter notebooks for demonstrations and tutorials.
+- `src/`: Source code for the preprocessing pipeline.
+  - `__init__.py`
+  - `data_inspection.py`
+  - `data_io.py`
+  - `data_preprocessing.py`
+  - `data_visualization.py`
+  - `method_variants.py`
+- `.gitignore`: Specifies untracked files to ignore.
+- `LICENSE`: The MIT License file.
+- `README.md`: Overview and documentation for the project.
+- `requirements.txt`: Python dependencies required.
+- `run_pipeline.py`: The master script for running the preprocessing pipeline.
 
 ## Installation
 
-Clone the repository in the dataset folder:
+Clone the repository:
 
-\```bash
-git clone https://github.com/yiannislevy/Sensor-Dataset-Preprocessing.git 
-\```
+```bash
+git clone https://github.com/yiannislevy/Sensor-Dataset-Preprocessing.git
+cd Sensor-Dataset-Preprocessing
+```
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
-1. Launch the script. A GUI window will appear to select the dataset folder.
-2. The script will process each subject's data in the dataset, saving it in a structured directory under `processed/csv` and `processed/binary`.
-3. If processed data for a subject already exists, the script will skip to the next subject.
+To run the preprocessing pipeline, execute the following command:
 
-Run the main pipeline script:
+```bash
+python run_pipeline.py
+```
+The pipeline will process data in the data/raw directory and output the results to data/processed.
 
-\```bash
-python main_pipeline.py
-\```
+## Data Folder Structure
 
-## Dependencies
+The `data` directory should be structured as follows:
 
-- Python 3.x
-- Pandas
-- NumPy
-- SciPy
-- Tkinter
+- Each subject's data is contained in a separate folder named with a unique ID.
+- The subject folder contains raw binary files for accelerometer and gyroscope data. There may be multiple binary files for each sensor, which will be concatenated during processing.
+- A text file containing weight data is also included in the subject's folder.
+- Processed data will be saved in the `data/processed` directory, within a folder corresponding to the subject's ID, in a Parquet file that contains all processed data for that subject.
+
+## Configuration
+
+Adjust the configuration file `config/config.json` to specify the following parameters:
+
+- `data_dir`: The directory containing the raw data.
+- `processed_dir`: The directory to save the processed data.
+- `upsample_frequency`: The frequency to upsample the data to, in Hz.
+- `median_filter_order`: The order of the median filter to apply to the data.
+- `gravity_filter_cutoff_hz`: The cutoff frequency for the low-pass filter used.
+- `left_handed_subjects`: A list of subject IDs that are left handed.
+
+## Documentation
+
+Documentation for the project can be found in the `docs` directory.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
