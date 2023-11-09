@@ -14,28 +14,35 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
 
 - `config/`: Configuration files in JSON format.
 - `data/`: Directory for raw and processed data storage.
-  - `raw/`: Raw data organized by subject.
-    - `1/`, `2/`, `3/`, ...: Subject folders named by ID.
-      - `timestamp_accelerometer.bin`: Raw accelerometer data files, where timestamp is the file creation time in Unix time.
-      - `timestamp_gyroscope.bin`: Raw gyroscope data files, where timestamp is the file creation time in Unix time.
-      - `weight_time.txt`: Weight measurements in text format, where time is in typical time format (YYYYMMDD_HHMMSS).
-  - `processed/`: Processed data organized by subject.
-    - `1/`, `2/`, `3/`, ...: Subject folders named by ID.
+  - `raw/`: Contains raw data files organized by subject.
+    - `1/`, `2/`, `3/`, ...: Folders for each subject, named by a unique identifier.
+      - `timestamp_accelerometer.bin`: Raw accelerometer data files, where 'timestamp' is the creation time in Unix time.
+      - `timestamp_gyroscope.bin`: Raw gyroscope data files, where 'timestamp' is the creation time in Unix time.
+      - `weight_time.txt`: Weight measurements in text format, where 'time' is in the format YYYYMMDD_HHMMSS.
+  - `processed/`: Contains processed data files organized by subject.
+    - `1/`, `2/`, `3/`, ...: Folders for each subject, named by a unique identifier.
       - `combined_data.parquet`: Processed data in Parquet format.
-- `docs/`: Additional documentation and notes.
-- `notebooks/`: Jupyter notebooks for demonstrations and tutorials.
-- `src/`: Source code for the preprocessing pipeline.
-  - `__init__.py`
-  - `data_inspection.py`
-  - `data_io.py`
-  - `data_preprocessing.py`
-  - `data_visualization.py`
-  - `method_variants.py`
-- `.gitignore`: Specifies untracked files to ignore.
-- `LICENSE`: The MIT License file.
-- `README.md`: Overview and documentation for the project.
-- `requirements.txt`: Python dependencies required.
-- `run_pipeline.py`: The master script for running the preprocessing pipeline.
+- `docs/`: Additional documentation, guidelines, and notes.
+- `notebooks/`: Jupyter notebooks for demonstrations, experiments, and tutorials.
+- `src/`: Source code directory for the dataset preprocessing pipeline.
+  - `analysis/`: Scripts for data analysis and generating statistics about subjects and the dataset.
+    - `__init__.py`
+    - `data_inspection.py`
+    - `dataset_statistics.py`
+  - `main/`: Main scripts for dataset creation and preprocessing.
+    - `__init__.py`
+    - `data_io.py`
+    - `data_preprocessing.py`
+  - `utils/`: Utility scripts with helper functions.
+    - `__init__.py`
+    - `data_visualization.py`
+    - `method_variants.py`
+- `.gitignore`: File specifying untracked files that Git should ignore.
+- `LICENSE`: The MIT License detailing the terms under which the software is provided.
+- `README.md`: This file, providing an overview and documentation for the project.
+- `requirements.txt`: List of Python dependencies required to run the project.
+- `run_pipeline.py`: Master script to initiate and run the preprocessing pipeline.
+- `setup.py`: Script for setting up the project environment.
 
 ## Installation
 

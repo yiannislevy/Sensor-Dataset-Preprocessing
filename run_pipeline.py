@@ -4,8 +4,8 @@ import os
 import json
 from pathlib import Path
 
-from src.data_io import load_raw_sensor_data, save_data, check_already_processed
-from src.data_preprocessing import resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
+from src.main.data_io import load_raw_sensor_data, save_data, check_already_processed
+from src.main.data_preprocessing import resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
     combine_sensor_data
 
 
