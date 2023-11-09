@@ -66,7 +66,7 @@ To run the preprocessing pipeline, execute the following command:
 ```bash
 python run_pipeline.py
 ```
-The pipeline will process data in the data/raw directory and output the results to data/processed.
+The pipeline will process data in the `data/raw` directory and output the results to `data/processed`.
 
 ## Data Folder Structure
 
@@ -75,7 +75,7 @@ The `data` directory should be structured as follows:
 - Each subject's data is contained in a separate folder named with a unique ID.
 - The subject folder contains raw binary files for accelerometer and gyroscope data. There may be multiple binary files for each sensor, which will be concatenated during processing.
 - A text file containing weight data is also included in the subject's folder.
-- Processed data will be saved in the `data/processed` directory, within a folder corresponding to the subject's ID, in a Parquet file that contains all processed data for that subject.
+- Processed data will be saved in the `data/processed` directory, within a folder corresponding to the subject's ID, in a Parquet (default) file that contains all processed data for that subject.
 
 ## Configuration
 
@@ -87,10 +87,11 @@ Adjust the configuration file `config/config.json` to specify the following para
 - `median_filter_order`: The order of the median filter to apply to the data.
 - `gravity_filter_cutoff_hz`: The cutoff frequency for the low-pass filter used.
 - `left_handed_subjects`: A list of subject IDs that are left handed.
+- `file_format`: Format of the file to be saved. Can choose between parquet, pickle, csv.
 
 ## Documentation
 
-Documentation for the project can be found in the `docs` directory.
+Documentation for the project can be found in the `docs` directory (pending).
 
 ## License
 
