@@ -12,6 +12,7 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
 
 ## Directory Structure
 
+
 - `config/`: Configuration files in JSON format.
 - `data/`: Directory for raw and processed data storage.
   - `raw/`: Contains raw data files organized by subject.

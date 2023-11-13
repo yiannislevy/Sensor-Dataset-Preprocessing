@@ -4,14 +4,14 @@ import os
 import json
 from pathlib import Path
 
-from src.main.data_io import load_raw_sensor_data, save_data, check_already_processed
-from src.main.data_preprocessing import resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
+from src.main.imu_data_io import load_raw_sensor_data, save_data, check_already_processed
+from src.main.imu_preprocessing import resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
     combine_sensor_data
 
 
 def main():
     # Load configuration
-    with open('config/config.json') as config_file:
+    with open('config/imu_config.json') as config_file:
         config = json.load(config_file)
 
     raw_data_directory = config['data_paths']['raw_data_directory']

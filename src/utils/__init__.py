@@ -1,3 +1,3 @@
 # src/utils/__init__.py
 
-__all__ = ["data_visualization", "method_variants"]
+__all__ = ["imu_data_visualization.py", "imu_method_variants.py"]
