@@ -8,7 +8,12 @@ from src.main.imu_data_io import load_raw_sensor_data, save_data, check_already_
 from src.main.imu_preprocessing import resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
     combine_sensor_data
 
-
+# TODO add mandometer in the pipeline
+# TODO add documentation
+# TODO modify README
+# TODO modify requirements.txt
+# TODO add tests
+# TODO remove unnecessary files like align_data or start_end, pipe_test etc [notebooks]
 def main():
     # Load configuration
     with open('config/imu_config.json') as config_file:

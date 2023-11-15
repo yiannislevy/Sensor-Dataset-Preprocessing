@@ -1,0 +1,19 @@
+{
+    "data_paths": {
+        "raw_data_directory": "./data/raw",
+        "processed_data_directory": "./data/processed"
+    },
+    "resampling": {
+        "upsample_frequency": 100
+    },
+    "filtering": {
+        "median_filter_order": 5,
+        "gravity_filter_cutoff_hz": 1
+    },
+    "processing_options": {
+        "left_handed_subjects": [1, 2, 3]
+    },
+    "saving_options": {
+        "file_format": "parquet"
+    }
+}

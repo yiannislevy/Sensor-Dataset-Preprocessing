@@ -3,7 +3,7 @@ from scipy.signal import savgol_filter
 
 import pandas as pd
 from scipy.signal import savgol_filter
-
+# TODO cleanup code
 
 def preprocess_mandometer_data(file_path, plate_weight=200, window_size=5, polyorder=2):
     """
@@ -64,3 +64,9 @@ def classify_and_segment_data(data, stability_threshold=0.5):
     # TODO: Implement specific logic for segmenting data into eating events
 
     return stability_classification
+
+
+def resample_mando(data):
+    # TODO docstring
+    # TODO implement
+    print("Resampling...")
