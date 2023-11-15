@@ -30,3 +30,5 @@ Thumbs.db
 # Jupyter notebook checkpoints and files
 .ipynb_checkpoints/
 notebooks/viewdata.ipynb
+
+setup.py

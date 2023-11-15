@@ -43,7 +43,6 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
 - `README.md`: This file, providing an overview and documentation for the project.
 - `requirements.txt`: List of Python dependencies required to run the project.
 - `run_pipeline.py`: Master script to initiate and run the preprocessing pipeline.
-- `setup.py`: Script for setting up the project environment.
 
 ## Installation
 
