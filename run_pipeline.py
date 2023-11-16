@@ -27,7 +27,7 @@ def main():
     left_handed_subjects = config['processing_options']['left_handed_subjects']
     saving_format = config['saving_options']['file_format']
 
-    # Ensure processed data directory exists
+    # Ensure processed_micromovements data directory exists
     Path(processed_data_directory).mkdir(parents=True, exist_ok=True)
 
     # Iterate over subject directories in the raw data directory
@@ -43,7 +43,7 @@ def main():
             # Construct the path to the subject's data
             subject_data_path = os.path.join(raw_data_directory, subject_id)
 
-            # Check if the subject's data has already been processed
+            # Check if the subject's data has already been processed_micromovements
             if check_already_processed(subject_id, processed_data_directory, saving_format):
                 print(f"Subject {subject_id} has already been processed with this file format. Skipping.")
                 continue
@@ -71,7 +71,7 @@ def main():
                 # Combine accelerometer and gyroscope data
                 combined_data = combine_sensor_data(acc_data, gyro_data)
 
-                # Save the processed data
+                # Save the processed_micromovements data
                 save_data(combined_data, processed_data_directory, subject_id, saving_format)
 
                 print(f"Processing complete for subject {subject_id}")

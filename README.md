@@ -96,3 +96,16 @@ Documentation for the project can be found in the `docs` directory (pending).
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Mandometer Time Alignment
+
+Since mandometer does not offer the option to save timestamp data along weight (in grams) we devised a manual way to do so in order to align the weight data with the sensor data, using video recordings. The following steps are required:
+
+1. Find a commonly identifiable event between the video and sensor data.
+2. Note the sensor's timestamp.
+3. Note the video's timestamp (preferably relative to its start for simplicity).
+4. Find a commonly identifiable event between the video and weight data.
+5. Note the weight's timestamp relative to its start (1 sample = 1 second, since 1hz)
+6. Note the video's timestamp.
+7. Calculate the relative difference of sensor and weight events from video timestamps.
+8. The mandometer's start time is the sensor's event timestamp (it's our reference) + the relative difference (from 7) - the weight's timestamp (from 5)

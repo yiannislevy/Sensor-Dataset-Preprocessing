@@ -66,7 +66,30 @@ def classify_and_segment_data(data, stability_threshold=0.5):
     return stability_classification
 
 
-def resample_mando(data):
-    # TODO docstring
-    # TODO implement
-    print("Resampling...")
+def linear_resample(data, target_freq):
+    """
+    Linearly resample raw data to a target frequency.
+
+    Args:
+        data (pandas.Series): Series containing the raw data.
+        target_freq (int): The target frequency in Hz to resample the data to.
+
+    Returns:
+        pandas.DataFrame: The resampled data DataFrame.
+    """
+    # Assuming the data is sampled at 1Hz originally, create a timestamp index
+    timestamps = pd.date_range(start='2023-01-01', periods=len(data), freq='S')
+
+    # Create a DataFrame with the original data
+    df = pd.DataFrame(data=data.values, index=timestamps, columns=['weight'])
+
+    # Determine the number of samples in the resampled data
+    total_samples = int(np.ceil((timestamps[-1] - timestamps[0]).total_seconds() * target_freq))
+
+    # Create a new timestamp index for the target frequency
+    target_timestamps = pd.date_range(start=timestamps[0], periods=total_samples, freq=pd.DateOffset(seconds=1/target_freq))
+
+    # Reindex the original DataFrame to the target timestamps with linear interpolation
+    resampled_df = df.reindex(target_timestamps).interpolate(method='linear')
+
+    return resampled_df

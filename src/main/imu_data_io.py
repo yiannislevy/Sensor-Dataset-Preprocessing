@@ -72,11 +72,11 @@ def load_raw_sensor_data(path):
 
 def save_data(data, processed_data_directory, subject_id, file_format):
     """
-    Save the processed data to a file in the specified format.
+    Save the processed_micromovements data to a file in the specified format.
 
     Args:
         data (pandas.DataFrame): The data to save.
-        processed_data_directory (str): The root directory to save processed data.
+        processed_data_directory (str): The root directory to save processed_micromovements data.
         subject_id (str): The subject identifier.
         file_format (str): The file format to save the data ('parquet', 'csv', 'pickle', etc.).
     """
@@ -157,15 +157,15 @@ def plot_parquet(M, title_prefix):
 
 def check_already_processed(subject_id, processed_data_directory, file_format='parquet'):
     """
-    Check if the sensor data for a given subject has already been processed in the specified file format.
+    Check if the sensor data for a given subject has already been processed_micromovements in the specified file format.
 
     Args:
         subject_id (str): The identifier for the subject.
-        processed_data_directory (str): The directory path where processed data is stored.
+        processed_data_directory (str): The directory path where processed_micromovements data is stored.
         file_format (str or tuple): The file format to check. Can be a single string or a tuple of strings representing multiple formats. Defaults to 'parquet'.
 
     Returns:
-        bool: True if data has already been processed in the specified file format, False otherwise.
+        bool: True if data has already been processed_micromovements in the specified file format, False otherwise.
     """
     if isinstance(file_format, str):
         file_formats = (file_format,)

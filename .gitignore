@@ -1,7 +1,7 @@
 # Configuration files
 config/imu_config.json
 config/mando_config.json
-config/time_sync.json
+annotations/time_sync.json
 
 # Dataset
 data/raw/*
@@ -32,3 +32,6 @@ Thumbs.db
 notebooks/viewdata.ipynb
 
 setup.py
+
+annotations/manual_micromovements
+annotations/processed_micromovements

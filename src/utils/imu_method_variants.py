@@ -58,7 +58,7 @@ def resample_sensor_data_last(acc_data, gyro_data, target_freq='10L'):
         or pandas DateOffset. Defaults to '10L', which represents 10 milliseconds.
 
     Returns:
-        tuple of pandas.DataFrame: A tuple containing the processed accelerometer and gyroscope DataFrames.
+        tuple of pandas.DataFrame: A tuple containing the processed_micromovements accelerometer and gyroscope DataFrames.
 
     The function assumes the 'time' column in the input DataFrames is in a datetime-like format and that
     the input DataFrames are sorted in ascending time order with no large gaps.
