@@ -46,16 +46,16 @@ def resample(acc_data, gyro_data, target_freq):
     pd.DataFrame: Resampled accelerometer data.
     pd.DataFrame: Resampled gyroscope data.
     """
-    def interpolate_to_common_timestamps(sensor_data, common_time_range):
+    def interpolate_to_common_timestamps(sensor_data, time_range):
         sensor_data['time_numeric'] = sensor_data['time'].astype(np.int64)
-        common_time_range_numeric = common_time_range.astype(np.int64)
+        common_time_range_numeric = time_range.astype(np.int64)
 
         interpolated_data = {}
         for axis in ['x', 'y', 'z']:
             f = interp1d(sensor_data['time_numeric'], sensor_data[axis], kind='linear', fill_value='extrapolate')
             interpolated_data[axis] = f(common_time_range_numeric)
 
-        interpolated_data['time'] = common_time_range
+        interpolated_data['time'] = time_range
         return pd.DataFrame(interpolated_data)
 
     # Generate new common timestamps at the target frequency
