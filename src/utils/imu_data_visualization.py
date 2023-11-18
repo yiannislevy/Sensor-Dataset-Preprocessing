@@ -2,7 +2,7 @@ import pytz
 from matplotlib import pyplot as plt
 
 
-def plot_raw_sensor(data, title):
+def plot_raw_sensor(data, title="Raw Sensor Data"):
     """
     Plot the x, y, and z sensor data against time for each sensor in the provided data.
 
@@ -78,7 +78,7 @@ def plot_axis_comparison(original_data, interpolated_data, axis, title):
     plt.show()
 
 
-def plot_parquet(M, title_prefix):
+def plot_parquet(M, title_prefix='Subject'):
     """
     Plot the sensor data stored in a DataFrame.
 
