@@ -1,79 +1,74 @@
 import numpy as np
 import pandas as pd
-from scipy.signal import resample_poly, medfilt, filtfilt, butter
+from scipy.interpolate import interp1d
+from scipy.signal import medfilt, filtfilt, butter
 
 
-# 1. Estimate sampling frequency of each sensor
-def calculate_frequency(data):
+# 1. Sync data based on their common time range
+def sync(acc_data, gyro_data):
     """
-    Calculate the sampling frequency of sensor data based on the time differences between data points.
+    Synchronizes accelerometer and gyroscope data based on their time stamps.
 
-    Args:
-        data (pandas.DataFrame): Dataframe containing sensor data with a 'time' column.
+    Parameters:
+    acc_data (pd.DataFrame): DataFrame containing accelerometer data with columns ['time', 'x', 'y', 'z'].
+    gyro_data (pd.DataFrame): DataFrame containing gyroscope data with columns ['time', 'x', 'y', 'z'].
 
     Returns:
-        float: The calculated average sampling frequency in Hertz (Hz).
+    pd.DataFrame: Synchronized accelerometer data.
+    pd.DataFrame: Synchronized gyroscope data.
     """
-    try:
-        time_diffs = data['time'].diff().dropna()
-        time_diffs_ms = time_diffs.dt.total_seconds() * 1000
-        avg_interval = time_diffs_ms.mean()
-        return 1000 / avg_interval
-    except Exception as e:
-        print(f"An error occurred while calculating the frequency: {e}")
-        raise
+    # Ensure the time columns are in datetime format
+    acc_data['time'] = pd.to_datetime(acc_data['time'])
+    gyro_data['time'] = pd.to_datetime(gyro_data['time'])
+
+    # Find the common time range
+    common_start_time = max(acc_data['time'].min(), gyro_data['time'].min())
+    common_end_time = min(acc_data['time'].max(), gyro_data['time'].max())
+
+    # Filter data based on the common time range
+    acc_synced = acc_data[(acc_data['time'] >= common_start_time) & (acc_data['time'] <= common_end_time)]
+    gyro_synced = gyro_data[(gyro_data['time'] >= common_start_time) & (gyro_data['time'] <= common_end_time)]
+
+    return acc_synced, gyro_synced
 
 
-# 2. Resample the data to a common frequency, interpolate missing values, and synchronize the timestamps
+# 2. Resample data to a common frequency
 def resample(acc_data, gyro_data, target_freq):
     """
-    Resample accelerometer and gyroscope data to a common frequency, interpolate missing values, and synchronize timestamps.
+    Resamples synchronized accelerometer and gyroscope data to a common frequency.
 
-    Args:
-        acc_data (pandas.DataFrame): DataFrame containing accelerometer data with 'time' and 'x', 'y', 'z' columns.
-        gyro_data (pandas.DataFrame): DataFrame containing gyroscope data with 'time' and 'x', 'y', 'z' columns.
-        target_freq (int): The target frequency in Hz to resample the data to.
+    Parameters:
+    acc_data (pd.DataFrame): DataFrame containing synchronized accelerometer data.
+    gyro_data (pd.DataFrame): DataFrame containing synchronized gyroscope data.
+    target_freq (float): Target frequency for resampling.
 
     Returns:
-        tuple of pandas.DataFrame: Tuple containing the resampled accelerometer and gyroscope DataFrames.
-
-    Raises:
-        ValueError: If the resampling fails due to inconsistent data.
+    pd.DataFrame: Resampled accelerometer data.
+    pd.DataFrame: Resampled gyroscope data.
     """
-    try:
-        # Synchronize the timestamps
-        start_time = max(acc_data['time'].iloc[0], gyro_data['time'].iloc[0])
-        end_time = min(acc_data['time'].iloc[-1], gyro_data['time'].iloc[-1])
+    def interpolate_to_common_timestamps(sensor_data, common_time_range):
+        sensor_data['time_numeric'] = sensor_data['time'].astype(np.int64)
+        common_time_range_numeric = common_time_range.astype(np.int64)
 
-        acc_data_sync = acc_data[(acc_data['time'] >= start_time) & (acc_data['time'] <= end_time)]
-        gyro_data_sync = gyro_data[(gyro_data['time'] >= start_time) & (gyro_data['time'] <= end_time)]
+        interpolated_data = {}
+        for axis in ['x', 'y', 'z']:
+            f = interp1d(sensor_data['time_numeric'], sensor_data[axis], kind='linear', fill_value='extrapolate')
+            interpolated_data[axis] = f(common_time_range_numeric)
 
-        # Calculate original frequency
-        original_freq = int(round((calculate_frequency(acc_data_sync) + calculate_frequency(gyro_data_sync)) / 2))
+        interpolated_data['time'] = common_time_range
+        return pd.DataFrame(interpolated_data)
 
-        L = target_freq  # Up-sampling factor
-        M = original_freq  # Down-sampling factor
+    # Generate new common timestamps at the target frequency
+    common_time_range = pd.date_range(start=acc_data['time'].min(),
+                                      end=acc_data['time'].max(),
+                                      freq=pd.Timedelta(seconds=1/target_freq))
 
-        # Resample data for each axis using resample_poly
-        acc_resampled = np.array([resample_poly(acc_data_sync[axis], L, M) for axis in ['x', 'y', 'z']]).T
-        gyro_resampled = np.array([resample_poly(gyro_data_sync[axis], L, M) for axis in ['x', 'y', 'z']]).T
+    # Interpolate accelerometer and gyroscope data
+    acc_resampled = interpolate_to_common_timestamps(acc_data, common_time_range)
+    gyro_resampled = interpolate_to_common_timestamps(gyro_data, common_time_range)
 
-        # Generate timestamps
-        resampled_len = min(len(acc_resampled), len(gyro_resampled))
-        resampled_times = pd.date_range(start=start_time, periods=resampled_len,
-                                        freq=pd.DateOffset(seconds=1 / target_freq))
+    return acc_resampled, gyro_resampled
 
-        # Create DataFrames
-        acc_resampled_df = pd.DataFrame(acc_resampled[:resampled_len], columns=['x', 'y', 'z'])
-        acc_resampled_df['time'] = resampled_times
-
-        gyro_resampled_df = pd.DataFrame(gyro_resampled[:resampled_len], columns=['x', 'y', 'z'])
-        gyro_resampled_df['time'] = resampled_times
-
-        return acc_resampled_df, gyro_resampled_df
-    except ValueError as e:
-        print(f"Resampling failed due to inconsistent data. Error: {e}")
-        raise
 
 
 # 3. Apply nth order median filtering to smooth the data

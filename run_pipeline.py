@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from src.main.data_io import load_raw_sensor_data, save_data, check_already_processed
-from src.main.data_preprocessing import resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
+from src.main.data_preprocessing import sync, resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
     combine_sensor_data
 
 
@@ -46,6 +46,9 @@ def main():
             try:
                 # Load raw sensor data
                 acc_data, gyro_data = load_raw_sensor_data(subject_data_path)
+
+                # Sync the data
+                acc_data, gyro_data = sync(acc_data, gyro_data)
 
                 # Resample the data
                 acc_data, gyro_data = resample(acc_data, gyro_data, upsample_frequency)
