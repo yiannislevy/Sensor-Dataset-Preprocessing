@@ -5,7 +5,7 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
 ## Features
 
 - **Data Loading and Saving**: Efficiently reads and writes sensor data.
-- **Preprocessing**: Includes resampling, median filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects.
+- **Preprocessing**: Includes syncing, resampling, median filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects.
 - **Inspection and Analysis**: Offers statistical analysis and evaluation tools for quality assurance.
 - **Visualization**: Provides utilities for visualizing data trends and anomalies.
 - **Variants**: Contains alternative methods for preprocessing steps, allowing for method comparison and selection.
@@ -38,6 +38,7 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
     - `__init__.py`
     - `data_visualization.py`
     - `method_variants.py`
+    - `tools.py`
 - `.gitignore`: File specifying untracked files that Git should ignore.
 - `LICENSE`: The MIT License detailing the terms under which the software is provided.
 - `README.md`: This file, providing an overview and documentation for the project.
