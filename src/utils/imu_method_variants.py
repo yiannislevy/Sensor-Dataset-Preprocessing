@@ -122,6 +122,7 @@ def resample_sensor_data_first(acc_data, gyro_data, acc_freq, gyro_freq, target_
     The function assumes that the input data's 'time' columns are datetime-like and that the input data
     are uniformly sampled at the specified current frequencies without any missing timestamps.
     """
+
     def interpolate_single_sensor(data, current_freq):
         # Determine the factor to convert current_freq to an integer
         current_freq_int = int(np.ceil(current_freq))
@@ -160,6 +161,7 @@ def resample_sensor_data_first(acc_data, gyro_data, acc_freq, gyro_freq, target_
     interpolated_gyro = interpolate_single_sensor(gyro_data, gyro_freq)
 
     return interpolated_acc, interpolated_gyro
+
 
 # Other versions of resampling:
 
@@ -224,6 +226,7 @@ def resample_simple_common_timestamp(acc_data, gyro_data, target_freq):
 
     The function assumes 'time' columns are datetime-like and that both datasets have overlapping time ranges.
     """
+
     def interpolate_single_sensor(data, timestamp):
         # Interpolate data to align with the common timestamps
         interpolated_data = data.set_index('time').reindex(timestamp).interpolate(method='time')
@@ -242,3 +245,62 @@ def resample_simple_common_timestamp(acc_data, gyro_data, target_freq):
     interpolated_gyro = interpolate_single_sensor(gyro_data, common_timestamps)
 
     return interpolated_acc, interpolated_gyro
+
+
+# TODO documentation for both below
+
+
+from src.utils.imu_data_visualization import plot_raw_sensor
+from src.utils.tools import calculate_frequency
+
+
+# Alternative sync and resample functions
+
+
+def upsample_sensor_data(sensor_data, target_freq):
+    # Ensure the time column is in datetime format
+    sensor_data['time'] = pd.to_datetime(sensor_data['time'])
+
+    # Determine the range of the timestamps
+    time_range = pd.date_range(start=sensor_data['time'].min(),
+                               end=sensor_data['time'].max(),
+                               freq=pd.Timedelta(seconds=1 / target_freq))
+
+    # Convert timestamp to numeric for interpolation
+    sensor_data['time_numeric'] = sensor_data['time'].astype(np.int64)
+    time_range_numeric = time_range.astype(np.int64)
+
+    # Interpolate for each axis
+    interpolated_data = {}
+    for axis in ['x', 'y', 'z']:
+        f = interp1d(sensor_data['time_numeric'], sensor_data[axis], kind='linear', fill_value='extrapolate')
+        interpolated_data[axis] = f(time_range_numeric)
+
+    # Convert numeric times back to timestamps
+    interpolated_data['time'] = time_range
+
+    return pd.DataFrame(interpolated_data)
+
+
+def upsample_and_sync(acc_data, gyro_data, target_freq):
+    # Upsample accelerometer data
+    acc_resampled = upsample_sensor_data(acc_data, target_freq)
+
+    plot_raw_sensor([acc_resampled], "Resampled inbetween step")
+    print(calculate_frequency(acc_resampled))
+
+    # Upsample gyroscope data
+    gyro_resampled = upsample_sensor_data(gyro_data, target_freq)
+
+    # Synchronize the timestamps
+    # Since both are upsampled to the same frequency, we can just align their timestamps
+    common_start_time = max(acc_resampled['time'].iloc[0], gyro_resampled['time'].iloc[0])
+    common_end_time = min(acc_resampled['time'].iloc[-1], gyro_resampled['time'].iloc[-1])
+
+    # Trim the data to the common timeframe
+    acc_resampled = acc_resampled[
+        (acc_resampled['time'] >= common_start_time) & (acc_resampled['time'] <= common_end_time)]
+    gyro_resampled = gyro_resampled[
+        (gyro_resampled['time'] >= common_start_time) & (gyro_resampled['time'] <= common_end_time)]
+
+    return acc_resampled, gyro_resampled

@@ -6,7 +6,8 @@ from pathlib import Path
 
 from src.main.imu_data_io import load_raw_sensor_data, save_data, check_already_processed
 from src.main.imu_preprocessing import sync, resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
-combine_sensor_data
+    combine_sensor_data
+
 
 # TODO add mandometer in the pipeline
 # TODO add documentation
