@@ -1,0 +1,500 @@
+{
+    "subject_id": "19",
+    "meals": [
+        {
+            "meal_id": 1,
+            "utensil_weight": 51,
+            "bites": [
+                {
+                    "bite_id": 1,
+                    "pick_food_t_relative": {
+                        "start": "00:00:54.1429",
+                        "end": "00:00:54.9429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:55.1421",
+                        "end": "00:00:56.4329"
+                    },
+                    "bite_weight": 20.0,
+                    "bite_start_t": 14.0,
+                    "bite_end_t": 15.0
+
+                },
+                {
+                    "bite_id": 2,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 20.0,
+                    "bite_start_t": 18.0,
+                    "bite_end_t": 22.0
+                },
+                {
+                    "bite_id": 3,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 19.0,
+                    "bite_start_t": 27.0,
+                    "bite_end_t": 29.0
+                },
+                {
+                    "bite_id": 4,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 30.0,
+                    "bite_start_t": 38.5,
+                    "bite_end_t": 41.0
+                },
+                {
+                    "bite_id": 5,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 22.0,
+                    "bite_start_t": 51.0,
+                    "bite_end_t": 53.0
+                },
+                {
+                    "bite_id": 6,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 23.0,
+                    "bite_start_t": 54.0,
+                    "bite_end_t": 56.5
+                },
+                {
+                    "bite_id": 7,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 21.0,
+                    "bite_start_t": 58.0,
+                    "bite_end_t": 62.0
+                },
+                {
+                    "bite_id": 8,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 15.0,
+                    "bite_start_t": 63.0,
+                    "bite_end_t": 67.0
+                },
+                {
+                    "bite_id": 9,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 17.0,
+                    "bite_start_t": 71.0,
+                    "bite_end_t": 80.0
+                },
+                {
+                    "bite_id": 10,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 20.0,
+                    "bite_start_t": 81.0,
+                    "bite_end_t": 83.0
+                },
+                {
+                    "bite_id": 11,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 17.0,
+                    "bite_start_t": 88.0,
+                    "bite_end_t": 93.0
+                },
+                {
+                    "bite_id": 12,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 14.0,
+                    "bite_start_t": 95.0,
+                    "bite_end_t": 97.0
+                },
+                {
+                    "bite_id": 13,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 16.0,
+                    "bite_start_t": 98.0,
+                    "bite_end_t": 104.0
+                },
+                {
+                    "bite_id": 14,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 11.0,
+                    "bite_start_t": 105.0,
+                    "bite_end_t": 107.5
+                },
+                {
+                    "bite_id": 15,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 10.0,
+                    "bite_start_t": 109.0,
+                    "bite_end_t": 112
+                },
+                {
+                    "bite_id": 16,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 16.0,
+                    "bite_start_t": 112.0,
+                    "bite_end_t": 116
+                },
+                {
+                    "bite_id": 17,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 13.0,
+                    "bite_start_t": 117.0,
+                    "bite_end_t": 122.0
+                },
+                {
+                    "bite_id": 18,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 10.0,
+                    "bite_start_t": 123.0,
+                    "bite_end_t": 128
+                },
+                {
+                    "bite_id": 19,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 12.0,
+                    "bite_start_t": 135.0,
+                    "bite_end_t": 138.0
+                },{
+                    "bite_id": 20,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 11.0,
+                    "bite_start_t": 139.0,
+                    "bite_end_t": 142.5
+                },{
+                    "bite_id": 21,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 8.0,
+                    "bite_start_t": 143.0,
+                    "bite_end_t": 147.5
+                },
+                {
+                    "bite_id": 22,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 4.0,
+                    "bite_start_t": 148.0,
+                    "bite_end_t": 151.0
+                },
+                {
+                    "bite_id": 23,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 6.0,
+                    "bite_start_t": 152.0,
+                    "bite_end_t": 156.0
+                },
+                {
+                    "bite_id": 24,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 7.0,
+                    "bite_start_t": 157.0,
+                    "bite_end_t": 162.0
+                },
+                {
+                    "bite_id": 25,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 10.0,
+                    "bite_start_t": 164.0,
+                    "bite_end_t": 168.5
+                },
+                {
+                    "bite_id": 26,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 6.0,
+                    "bite_start_t": 169.0,
+                    "bite_end_t": 172.5
+                },
+                {
+                    "bite_id": 27,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 9.0,
+                    "bite_start_t": 173.0,
+                    "bite_end_t": 175.0
+                },
+                {
+                    "bite_id": 28,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 16.0,
+                    "bite_start_t": 176.0,
+                    "bite_end_t": 178.0
+                },
+                {
+                    "bite_id": 29,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 6.0,
+                    "bite_start_t": 189.0,
+                    "bite_end_t": 190.5
+                },
+                {
+                    "bite_id": 30,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 3.0,
+                    "bite_start_t": 191.0,
+                    "bite_end_t": 194.0
+                },
+                {
+                    "bite_id": 31,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 3.0,
+                    "bite_start_t": 195.0,
+                    "bite_end_t": 199.0
+                },
+                {
+                    "bite_id": 32,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 1.0,
+                    "bite_start_t": 200.0,
+                    "bite_end_t": 205.0
+                },
+                {
+                    "bite_id": 33,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 2.0,
+                    "bite_start_t": 205.0,
+                    "bite_end_t": 208.0
+                },
+                {
+                    "bite_id": 34,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 2.0,
+                    "bite_start_t": 209.0,
+                    "bite_end_t": 212.0
+                },
+                {
+                    "bite_id": 35,
+                    "pick_food_t_relative": {
+                        "start": "00:00:56.4329",
+                        "end": "00:00:57.1429"
+                    },
+                    "upwards_t_relative": {
+                        "start": "00:00:57.1429",
+                        "end": "00:00:58.1429"
+                    },
+                    "bite_weight": 1.0,
+                    "bite_start_t": 213.0,
+                    "bite_end_t": 216.0
+                }
+            ]
+        }
+    ]
+}
