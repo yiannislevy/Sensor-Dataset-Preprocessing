@@ -93,3 +93,35 @@ def linear_resample(data, target_freq):
     resampled_df = df.reindex(target_timestamps).interpolate(method='linear')
 
     return resampled_df
+
+# TODO evaluate its ability to detect bites and then keep it or not
+def process_meal_data(data, stability_range=3, max_decrease=70):
+    """
+    Process the meal weight data to ensure decreases are within specified limits and stable.
+
+    Parameters:
+    data (list or np.array): The raw meal weight data.
+    stability_range (int): The allowed fluctuation range for considering a decrease as stable (default 3 grams).
+    max_decrease (int): Maximum allowed decrease in weight between two consecutive measurements (default 40 grams).
+
+    Returns:
+    np.array: The processed meal weight data with filtered decreases.
+    """
+    if len(data) < 2:
+        return np.array(data)  # Not enough data to process
+
+    processed_data = np.copy(data)
+    for i in range(1, len(data)):
+        current_decrease = processed_data[i - 1] - processed_data[i]
+
+        # Check if decrease is more than the maximum allowed
+        if current_decrease > max_decrease:
+            processed_data[i] = processed_data[i - 1]
+        else:
+            # Check for stability in the next measurement (if exists)
+            if i < len(data) - 1:
+                next_decrease = processed_data[i] - data[i + 1]
+                if abs(next_decrease) > stability_range:
+                    processed_data[i] = processed_data[i - 1]
+
+    return processed_data

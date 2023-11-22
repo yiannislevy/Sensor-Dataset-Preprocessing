@@ -16,3 +16,17 @@ def calculate_frequency(data):
     except Exception as e:
         print(f"An error occurred while calculating the frequency: {e}")
         raise
+
+
+def convert_time_to_seconds(time_str):
+    """
+    Convert a time string in the format "HH:MM:SS.SSSS" to seconds.
+
+    Parameters:
+    - time_str (str): Time string to convert.
+
+    Returns:
+    - float: Time in seconds.
+    """
+    h, m, s = time_str.split(':')
+    return int(h) * 3600 + int(m) * 60 + float(s)
