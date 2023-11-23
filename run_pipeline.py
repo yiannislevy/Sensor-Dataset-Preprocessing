@@ -5,8 +5,8 @@ import json
 from pathlib import Path
 
 from src.main.imu_data_io import load_raw_sensor_data, save_data, check_already_processed
-from src.main.imu_preprocessing import sync, resample, median_filter, remove_gravity, mirror_left_to_right, standardize_data, \
-    combine_sensor_data
+from src.main.imu_preprocessing import (sync, resample, remove_gravity, moving_average_filter, mirror_left_to_right,
+                                        align_old_msft_watch, standardize_data, combine_sensor_data)
 
 
 # TODO add mandometer in the pipeline
@@ -23,7 +23,7 @@ def main():
     raw_data_directory = config['data_paths']['raw_data_directory']
     processed_data_directory = config['data_paths']['processed_data_directory']
     upsample_frequency = config['resampling']['upsample_frequency']
-    median_filter_order = config['filtering']['median_filter_order']
+    filter_length = config['filtering']['moving_average_filter_length']
     gravity_filter_cutoff_hz = config['filtering']['gravity_filter_cutoff_hz']
     left_handed_subjects = config['processing_options']['left_handed_subjects']
     saving_format = config['saving_options']['file_format']
@@ -59,17 +59,20 @@ def main():
                 # Resample the data
                 acc_data, gyro_data = resample(acc_data, gyro_data, upsample_frequency)
 
-                # Apply median filter
-                acc_data, gyro_data = median_filter(acc_data, gyro_data, median_filter_order)
-
                 # Remove earth's gravity from accelerometer data
-                acc_data = remove_gravity(acc_data, gravity_filter_cutoff_hz, upsample_frequency)
+                acc_data = remove_gravity(acc_data, upsample_frequency, gravity_filter_cutoff_hz)
+
+                # Apply moving average filter
+                acc_data, gyro_data = moving_average_filter(acc_data, gyro_data, filter_length)
 
                 # If subject is left-handed, mirror the data
                 if int(subject_id) in left_handed_subjects:
                     acc_data, gyro_data = mirror_left_to_right(acc_data, gyro_data)
 
-                # Standardize
+                # Align data with Microsoft's Band 2 Watch orientation standard
+                acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data)
+
+                # Standardize TODO adapt to paper's needs
                 acc_data, gyro_data = standardize_data(acc_data, gyro_data)
 
                 # Combine accelerometer and gyroscope data

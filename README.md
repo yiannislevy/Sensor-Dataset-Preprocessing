@@ -5,7 +5,7 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
 ## Features
 
 - **Data Loading and Saving**: Efficiently reads and writes sensor data.
-- **Preprocessing**: Includes syncing, resampling, median filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects.
+- **Preprocessing**: Includes syncing, resampling, moving average filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects, alignment with a microsoft band 2 watch axes orientation standard.
 - **Inspection and Analysis**: Offers statistical analysis and evaluation tools for quality assurance.
 - **Visualization**: Provides utilities for visualizing data trends and anomalies.
 - **Variants**: Contains alternative methods for preprocessing steps, allowing for method comparison and selection.
@@ -85,7 +85,7 @@ Adjust the configuration file `config/config.json` to specify the following para
 - `data_dir`: The directory containing the raw data.
 - `processed_dir`: The directory to save the processed data.
 - `upsample_frequency`: The frequency to upsample the data to, in Hz.
-- `median_filter_order`: The order of the median filter to apply to the data.
+- `moving_average_filter_length`: The length of the moving average filter.
 - `gravity_filter_cutoff_hz`: The cutoff frequency for the low-pass filter used.
 - `left_handed_subjects`: A list of subject IDs that are left handed.
 - `file_format`: Format of the file to be saved. Can choose between parquet, pickle, csv.

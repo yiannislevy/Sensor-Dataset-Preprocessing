@@ -1,22 +1,30 @@
 import pytz
 from matplotlib import pyplot as plt
+import pytz
 
 
-def plot_raw_sensor(data, title="Raw Sensor Data"):
+def plot_raw_sensor(data, title):
     """
-    Plot the x, y, and z sensor data against time for each sensor in the provided data.
-
-    This function assumes the 'time' column in the data is timezone-naive and will convert
-    it to timezone-aware UTC before plotting.
+    Plot sensor data over time. This function can handle either a single sensor DataFrame or a tuple of DataFrames for both accelerometer and gyroscope.
 
     Args:
-        data (list of pandas.DataFrame): A list containing the sensor data DataFrames.
-        title (str): A title for the plot indicating the sensor type.
+        data (tuple of pandas.DataFrame or pandas.DataFrame): Sensor data to be plotted.
+            If a tuple is provided, it should contain two DataFrames (one for accelerometer and one for gyroscope).
+            If a single DataFrame is provided, it will be considered as data for one sensor type.
+        title (str, optional): Title for the plot. Defaults to "Sensor Data". Used as the sensor name when a single DataFrame is provided.
 
     Plots:
         Matplotlib figures displaying the sensor data for each axis over time.
     """
-    for sensor in data:
+    # Determine if data is a tuple (both sensors) or a single DataFrame (one sensor)
+    if isinstance(data, tuple):
+        sensors = data
+        sensor_names = ['Accelerometer', 'Gyroscope']
+    else:
+        sensors = [data]
+        sensor_names = [title]  # Use the provided title as the sensor name
+
+    for sensor, sensor_name in zip(sensors, sensor_names):
         x = sensor['x']
         y = sensor['y']
         z = sensor['z']
@@ -30,7 +38,7 @@ def plot_raw_sensor(data, title="Raw Sensor Data"):
         plt.plot(time, z, label='z')
         plt.xlabel('Time')
         plt.ylabel('Values')
-        plt.title('Sensor Data over Time for ' + title)
+        plt.title(f'{title}: {sensor_name} Data over Time')
         plt.legend()
         plt.show()
 

@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 sensor_dtype = np.dtype([
     ("x", ">f"),
@@ -70,7 +69,7 @@ def load_raw_sensor_data(path):
         raise
 
 
-def save_data(data, processed_data_directory, subject_id, file_format):
+def save_data(data, processed_data_directory, subject_id, file_format='parquet'):
     """
     Save the processed_micromovements data to a file in the specified format.
 
@@ -85,14 +84,14 @@ def save_data(data, processed_data_directory, subject_id, file_format):
     os.makedirs(subject_dir, exist_ok=True)
 
     # Define the file path
-    file_path = os.path.join(subject_dir, f"{subject_id}.{file_format}")
+    file_path = os.path.join(subject_dir, f"{subject_id}.{file_format if file_format != 'pickle' else 'pkl'}")
 
     # Save the data in the specified format
     if file_format == 'parquet':
         data.to_parquet(file_path)
     elif file_format == 'csv':
         data.to_csv(file_path, index=False)
-    elif file_format == 'pickle':
+    elif file_format in ['pickle', 'pkl']:
         data.to_pickle(file_path)
     else:
         raise ValueError(f"Unsupported file format: {file_format}")
@@ -117,42 +116,6 @@ def read_parquet(file_path):
     except Exception as e:
         print(f"An error occurred while reading the Parquet file: {e}")
         return None
-
-
-def plot_parquet(M, title_prefix):
-    """
-    Plot the time series data for accelerometer and gyroscope from a DataFrame.
-
-    This function splits the combined accelerometer and gyroscope data into two parts,
-    and plots each sensor's time series in separate figures.
-
-    Args:
-        M (pandas.DataFrame): DataFrame with combined sensor data including time ('t'),
-                              accelerometer ('a_x', 'a_y', 'a_z'), and gyroscope ('g_x', 'g_y', 'g_z') columns.
-        title_prefix (str): A prefix for the plot title, usually indicating the subject or condition of the data.
-
-    The function does not return a value. It generates and displays plots.
-    """
-    # Split the data into accelerometer and gyroscope parts
-    acc_data = M[['t', 'a_x', 'a_y', 'a_z']]
-    gyro_data = M[['t', 'g_x', 'g_y', 'g_z']]
-
-    # Define a helper function to plot each sensor
-    def plot_each_sensor(data, sensor_title):
-        plt.figure(figsize=(12, 8))
-        for axis in data.columns[1:]:
-            plt.plot(data['t'], data[axis], label=axis)
-        plt.xlabel('Time')
-        plt.ylabel('Sensor Values')
-        plt.title(f'{sensor_title} Data over Time for {title_prefix}')
-        plt.legend()
-        plt.show()
-
-    # Plot accelerometer data
-    plot_each_sensor(acc_data, 'Accelerometer')
-
-    # Plot gyroscope data
-    plot_each_sensor(gyro_data, 'Gyroscope')
 
 
 def check_already_processed(subject_id, processed_data_directory, file_format='parquet'):
