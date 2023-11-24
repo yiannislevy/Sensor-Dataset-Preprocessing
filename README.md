@@ -12,7 +12,9 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
 
 ## Directory Structure
 
-
+- `annotations/`: Contains scripts and json files for annotating data.
+  - `micromovemet_time_align.py`
+  - `time_calculator.py`
 - `config/`: Configuration files in JSON format.
 - `data/`: Directory for raw and processed data storage.
   - `raw/`: Contains raw data files organized by subject.
@@ -32,12 +34,15 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
     - `dataset_statistics.py`
   - `main/`: Main scripts for dataset creation and preprocessing.
     - `__init__.py`
-    - `data_io.py`
-    - `data_preprocessing.py`
+    - `imu_data_io.py`
+    - `imu_data_preprocessing.py`
+    - `mando_data_io.py`
+    - `mando_preprocessing.py`
   - `utils/`: Utility scripts with helper functions.
     - `__init__.py`
-    - `data_visualization.py`
-    - `method_variants.py`
+    - `imu_data_visualization.py`
+    - `imu_method_variants.py`
+    - `mando_viz.py`
     - `tools.py`
 - `.gitignore`: File specifying untracked files that Git should ignore.
 - `LICENSE`: The MIT License detailing the terms under which the software is provided.
@@ -90,15 +95,7 @@ Adjust the configuration file `config/config.json` to specify the following para
 - `left_handed_subjects`: A list of subject IDs that are left handed.
 - `file_format`: Format of the file to be saved. Can choose between parquet, pickle, csv.
 
-## Documentation
-
-Documentation for the project can be found in the `docs` directory (pending).
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
-## Mandometer Time Alignment
+## Mandometer Manual Time Alignment Instructions
 
 Since mandometer does not offer the option to save timestamp data along weight (in grams) we devised a manual way to do so in order to align the weight data with the sensor data, using video recordings. The following steps are required:
 
@@ -110,3 +107,11 @@ Since mandometer does not offer the option to save timestamp data along weight (
 6. Note the video's timestamp.
 7. Calculate the relative difference of sensor and weight events from video timestamps.
 8. The mandometer's start time is the sensor's event timestamp (it's our reference) + the relative difference (from 7) - the weight's timestamp (from 5)
+
+## Documentation
+
+Documentation for the project can be found in the `docs` directory (pending).
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
