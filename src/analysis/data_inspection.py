@@ -56,7 +56,7 @@ def median_filters_grid_search(data, filter_orders):
         dict: A dictionary with keys 'order', 'filtered_data', 'snr', and 'correlation', containing
         the median filter window sizes, filtered data, SNR improvements, and correlations for each filter order.
 
-    The function assumes the input data is pre-processed and does not handle exceptions arising from invalid input.
+    The function assumes the input data is pre-processed_micromovements and does not handle exceptions arising from invalid input.
     """
     # Dictionary to store the filtered data and metrics
     results = {

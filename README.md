@@ -5,13 +5,16 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
 ## Features
 
 - **Data Loading and Saving**: Efficiently reads and writes sensor data.
-- **Preprocessing**: Includes syncing, resampling, median filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects.
+- **Preprocessing**: Includes syncing, resampling, moving average filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects, alignment with a microsoft band 2 watch axes orientation standard.
 - **Inspection and Analysis**: Offers statistical analysis and evaluation tools for quality assurance.
 - **Visualization**: Provides utilities for visualizing data trends and anomalies.
 - **Variants**: Contains alternative methods for preprocessing steps, allowing for method comparison and selection.
 
 ## Directory Structure
 
+- `annotations/`: Contains scripts and json files for annotating data.
+  - `micromovemet_time_align.py`
+  - `time_calculator.py`
 - `config/`: Configuration files in JSON format.
 - `data/`: Directory for raw and processed data storage.
   - `raw/`: Contains raw data files organized by subject.
@@ -31,12 +34,15 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
     - `dataset_statistics.py`
   - `main/`: Main scripts for dataset creation and preprocessing.
     - `__init__.py`
-    - `data_io.py`
-    - `data_preprocessing.py`
+    - `imu_data_io.py`
+    - `imu_data_preprocessing.py`
+    - `mando_data_io.py`
+    - `mando_preprocessing.py`
   - `utils/`: Utility scripts with helper functions.
     - `__init__.py`
-    - `data_visualization.py`
-    - `method_variants.py`
+    - `imu_data_visualization.py`
+    - `imu_method_variants.py`
+    - `mando_viz.py`
     - `tools.py`
 - `.gitignore`: File specifying untracked files that Git should ignore.
 - `LICENSE`: The MIT License detailing the terms under which the software is provided.
@@ -84,10 +90,23 @@ Adjust the configuration file `config/config.json` to specify the following para
 - `data_dir`: The directory containing the raw data.
 - `processed_dir`: The directory to save the processed data.
 - `upsample_frequency`: The frequency to upsample the data to, in Hz.
-- `median_filter_order`: The order of the median filter to apply to the data.
+- `moving_average_filter_length`: The length of the moving average filter.
 - `gravity_filter_cutoff_hz`: The cutoff frequency for the low-pass filter used.
 - `left_handed_subjects`: A list of subject IDs that are left handed.
 - `file_format`: Format of the file to be saved. Can choose between parquet, pickle, csv.
+
+## Mandometer Manual Time Alignment Instructions
+
+Since mandometer does not offer the option to save timestamp data along weight (in grams) we devised a manual way to do so in order to align the weight data with the sensor data, using video recordings. The following steps are required:
+
+1. Find a commonly identifiable event between the video and sensor data.
+2. Note the sensor's timestamp.
+3. Note the video's timestamp (preferably relative to its start for simplicity).
+4. Find a commonly identifiable event between the video and weight data.
+5. Note the weight's timestamp relative to its start (1 sample = 1 second, since 1hz)
+6. Note the video's timestamp.
+7. Calculate the relative difference of sensor and weight events from video timestamps.
+8. The mandometer's start time is the sensor's event timestamp (it's our reference) + the relative difference (from 7) - the weight's timestamp (from 5)
 
 ## Documentation
 
