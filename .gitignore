@@ -1,7 +1,7 @@
 # Configuration files
-config/imu_config.json
-config/mando_config.json
-annotations/time_sync.json
+#config/imu_config.json
+#config/mando_config.json
+#annotations/time_sync.json
 
 # Dataset
 data/raw/*
@@ -28,12 +28,12 @@ venv/
 Thumbs.db
 
 # Jupyter notebook checkpoints and files
-.ipynb_checkpoints/
-notebooks/viewdata.ipynb
+#.ipynb_checkpoints/
+#notebooks/viewdata.ipynb
 
 setup.py
 
 
-annotations/processed_micromovements
-R19
-docs/smartwatch_orientation_manual.pdf
+#annotations/processed_micromovements
+#R19
+#docs/smartwatch_orientation_manual.pdf
