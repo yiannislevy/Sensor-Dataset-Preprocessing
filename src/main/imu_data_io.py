@@ -69,7 +69,7 @@ def load_raw_sensor_data(path):
         raise
 
 
-def save_data(data, processed_data_directory, subject_id, file_format='parquet'):
+def save_data(data, processed_data_directory, subject_id, file_format='pkl'):
     """
     Save the processed_micromovements data to a file in the specified format.
 

@@ -72,8 +72,8 @@ def main():
                 # Align data with Microsoft's Band 2 Watch orientation standard
                 acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data)
 
-                # Standardize TODO adapt to paper's needs
-                acc_data, gyro_data = standardize_data(acc_data, gyro_data)
+                # Standardize TODO adapt to paper's needs --> normalize
+                # acc_data, gyro_data = standardize_data(acc_data, gyro_data)
 
                 # Combine accelerometer and gyroscope data
                 combined_data = combine_sensor_data(acc_data, gyro_data)
