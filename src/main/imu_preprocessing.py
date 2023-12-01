@@ -167,7 +167,39 @@ def align_old_msft_watch(acc_data, gyro_data):
     return acc_data, gyro_data
 
 
-# 7. Standardize the data (subtract the mean and divide by the standard deviation)
+# 7. Transform data units from m/s^2 to g and rad/s to deg/s
+def transform_data(acc_data, gyro_data):
+    """
+    Transforms accelerometer data from m/s^2 to g-forces, and gyroscope data from rad/s to degrees/s.
+
+    Parameters:
+    acc_df (pd.DataFrame): DataFrame containing accelerometer data with columns ['time', 'x', 'y', 'z'].
+    gyr_df (pd.DataFrame): DataFrame containing gyroscope data with columns ['time', 'x', 'y', 'z'].
+
+    Returns:
+    pd.DataFrame: Transformed accelerometer data in g-forces.
+    pd.DataFrame: Transformed gyroscope data in degrees/s.
+    """
+    # Constants for conversion
+    g_force_conversion = 9.81
+    degrees_conversion = 57.2958
+
+    # Create copies of the DataFrames to avoid modifying the original data
+    acc_transformed = acc_data.copy()
+    gyro_transformed = gyro_data.copy()
+
+    # Transform accelerometer data from m/s^2 to g-forces
+    for axis in ['x', 'y', 'z']:
+        acc_transformed[axis] = acc_transformed[axis] / g_force_conversion
+
+    # Transform gyroscope data from rad/s to degrees/s
+    for axis in ['x', 'y', 'z']:
+        gyro_transformed[axis] = gyro_transformed[axis] * degrees_conversion
+
+    return acc_transformed, gyro_transformed
+
+
+# 8. Standardize the data (subtract the mean and divide by the standard deviation)
 def standardize_data(acc_data, gyro_data):
     """
     Standardize the sensor data by subtracting the mean and dividing by the standard deviation for each axis.
@@ -201,7 +233,7 @@ def standardize_data(acc_data, gyro_data):
         raise
 
 
-# 8. Combine the data into a single array
+# 9. Combine the data into a single array
 def combine_sensor_data(standardized_acc, standardized_gyro):
     """
     Combine standardized accelerometer and gyroscope data into a single DataFrame.

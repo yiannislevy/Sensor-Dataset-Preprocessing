@@ -5,7 +5,7 @@ This repository contains a comprehensive pipeline for preprocessing sensor and w
 ## Features
 
 - **Data Loading and Saving**: Efficiently reads and writes sensor data.
-- **Preprocessing**: Includes syncing, resampling, moving average filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects, alignment with a microsoft band 2 watch axes orientation standard.
+- **Preprocessing**: Includes syncing, resampling, moving average filtering, and gravity component removal from accelerometer data, standardization, optional mirroring for left handed subjects, alignment with a microsoft band 2 watch axes orientation standard, transform units to 'g' and 'deg/s'.
 - **Inspection and Analysis**: Offers statistical analysis and evaluation tools for quality assurance.
 - **Visualization**: Provides utilities for visualizing data trends and anomalies.
 - **Variants**: Contains alternative methods for preprocessing steps, allowing for method comparison and selection.

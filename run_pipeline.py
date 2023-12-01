@@ -6,7 +6,7 @@ from pathlib import Path
 
 from src.main.imu_data_io import load_raw_sensor_data, save_data, check_already_processed
 from src.main.imu_preprocessing import (sync, resample, remove_gravity, moving_average_filter, mirror_left_to_right,
-                                        align_old_msft_watch, standardize_data, combine_sensor_data)
+                                        align_old_msft_watch, standardize_data, transform_data, combine_sensor_data)
 
 
 # TODO add mandometer in the pipeline
@@ -71,6 +71,9 @@ def main():
 
                 # Align data with Microsoft's Band 2 Watch orientation standard
                 acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data)
+
+                # Transform units
+                acc_data, gyro_data = transform_data(acc_data, gyro_data)
 
                 # Standardize TODO adapt to paper's needs --> normalize
                 # acc_data, gyro_data = standardize_data(acc_data, gyro_data)
