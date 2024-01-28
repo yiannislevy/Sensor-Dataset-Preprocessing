@@ -6,51 +6,33 @@ from src.utils.imu_data_visualization import plot_raw_sensor
 from src.utils.tools import calculate_frequency
 
 
-# If median filtering is required, use this version >
-def median_filter(acc_data, gyro_data, filter_order=5):
+# If moving average filtering is required, use this version >
+def moving_average_filter(acc_data, gyro_data, filter_length=25):
     """
-    Apply a median filter to the accelerometer and gyroscope sensor data to smooth it.
+    Apply a moving average filter with a specified length to accelerometer and gyroscope sensor data.
 
     Args:
         acc_data (pandas.DataFrame): DataFrame containing accelerometer sensor data with 'x', 'y', 'z' columns.
         gyro_data (pandas.DataFrame): DataFrame containing gyroscope sensor data with 'x', 'y', 'z' columns.
-        filter_order (int): The order of the median filter (kernel size). Defaults to 5.
+        filter_length (int): The length of the moving average filter. Defaults to 25.
 
     Returns:
         tuple: A tuple containing two DataFrames:
                - DataFrame containing the filtered accelerometer sensor data.
                - DataFrame containing the filtered gyroscope sensor data.
-
-    Raises:
-        ValueError: If the filtering fails due to an inappropriate filter order.
     """
-    try:
-        # Apply median filter to each axis for accelerometer data
-        filtered_acc_x = medfilt(acc_data['x'], kernel_size=filter_order)
-        filtered_acc_y = medfilt(acc_data['y'], kernel_size=filter_order)
-        filtered_acc_z = medfilt(acc_data['z'], kernel_size=filter_order)
+    # Create the filter kernel (uniform weights)
+    filter_kernel = np.ones(filter_length) / filter_length
 
-        # Create a new DataFrame for the filtered accelerometer data
-        filtered_acc_data = acc_data.copy()
-        filtered_acc_data['x'] = filtered_acc_x
-        filtered_acc_data['y'] = filtered_acc_y
-        filtered_acc_data['z'] = filtered_acc_z
+    # Apply moving average filter to each axis for accelerometer and gyroscope data
+    filtered_acc_data = acc_data.copy()
+    filtered_gyro_data = gyro_data.copy()
 
-        # Apply median filter to each axis for gyroscope data
-        filtered_gyro_x = medfilt(gyro_data['x'], kernel_size=filter_order)
-        filtered_gyro_y = medfilt(gyro_data['y'], kernel_size=filter_order)
-        filtered_gyro_z = medfilt(gyro_data['z'], kernel_size=filter_order)
+    for axis in ['x', 'y', 'z']:
+        filtered_acc_data[axis] = np.convolve(acc_data[axis], filter_kernel, mode='same')
+        filtered_gyro_data[axis] = np.convolve(gyro_data[axis], filter_kernel, mode='same')
 
-        # Create a new DataFrame for the filtered gyroscope data
-        filtered_gyro_data = gyro_data.copy()
-        filtered_gyro_data['x'] = filtered_gyro_x
-        filtered_gyro_data['y'] = filtered_gyro_y
-        filtered_gyro_data['z'] = filtered_gyro_z
-
-        return filtered_acc_data, filtered_gyro_data
-    except ValueError as e:
-        print(f"Filtering failed due to inappropriate filter order. Error: {e}")
-        raise
+    return filtered_acc_data, filtered_gyro_data
 
 
 # Latest version >

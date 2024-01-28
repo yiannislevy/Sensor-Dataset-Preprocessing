@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from src.main.imu_data_io import load_raw_sensor_data, save_data, check_already_processed
-from src.main.imu_preprocessing import (sync, resample, remove_gravity, moving_average_filter, mirror_left_to_right,
+from src.main.imu_preprocessing import (sync, resample, remove_gravity, median_filter, mirror_left_to_right,
                                         align_old_msft_watch, standardize_data, transform_data, combine_sensor_data)
 
 
@@ -15,6 +15,8 @@ from src.main.imu_preprocessing import (sync, resample, remove_gravity, moving_a
 # TODO modify requirements.txt
 # TODO add tests
 # TODO remove unnecessary files like align_data or start_end, pipe_test etc [notebooks]
+
+# NOTE : PAPER IN QUESTION --> Modeling Wrist Micromovements
 def main():
     # Load configuration
     with open('config/imu_config.json') as config_file:
@@ -60,23 +62,24 @@ def main():
                 acc_data, gyro_data = resample(acc_data, gyro_data, upsample_frequency)
 
                 # Remove earth's gravity from accelerometer data
-                acc_data = remove_gravity(acc_data, upsample_frequency, gravity_filter_cutoff_hz)
+                acc_data = remove_gravity(acc_data, upsample_frequency, gravity_filter_cutoff_hz) # TODO : Check its what paper says
 
                 # Apply moving average filter
-                acc_data, gyro_data = moving_average_filter(acc_data, gyro_data, filter_length)
+                acc_data, gyro_data = median_filter(acc_data, gyro_data, filter_length)
 
                 # If subject is left-handed, mirror the data
                 if int(subject_id) in left_handed_subjects:
                     acc_data, gyro_data = mirror_left_to_right(acc_data, gyro_data)
 
                 # Align data with Microsoft's Band 2 Watch orientation standard
-                acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data)
+                # acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data) # TODO : uncomment and integrate
 
                 # Transform units
                 acc_data, gyro_data = transform_data(acc_data, gyro_data)
 
-                # Standardize TODO adapt to paper's needs --> normalize
-                # acc_data, gyro_data = standardize_data(acc_data, gyro_data)
+                # Standardize
+                # acc_data, gyro_data = standardize_data(acc_data, gyro_data) # TODO : Change way of implementing that
+                #  (advise BiteDetection's repo ->src/utils/cnn_steps.py 'standardize'
 
                 # Combine accelerometer and gyroscope data
                 combined_data = combine_sensor_data(acc_data, gyro_data)

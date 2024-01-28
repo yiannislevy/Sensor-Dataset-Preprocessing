@@ -84,7 +84,7 @@ def remove_gravity(data, sample_rate=100, cutoff_hz=1):
     Returns:
         pandas.DataFrame: DataFrame with the filtered accelerometer data.
     """
-    num_taps = sample_rate * 5 + 1
+    num_taps = sample_rate * 5 + 1 # TODO : Can that become 512 tap delay?
 
     hp_filter = firwin(num_taps, cutoff_hz / (sample_rate / 2), pass_zero=False)
 
@@ -95,33 +95,51 @@ def remove_gravity(data, sample_rate=100, cutoff_hz=1):
     return data
 
 
-# 4. Apply moving average filtering to smooth the data
-def moving_average_filter(acc_data, gyro_data, filter_length=25):
+# 4. Apply median filtering to smooth the data
+def median_filter(acc_data, gyro_data, filter_order=5):
     """
-    Apply a moving average filter with a specified length to accelerometer and gyroscope sensor data.
+    Apply a median filter to the accelerometer and gyroscope sensor data to smooth it.
 
     Args:
         acc_data (pandas.DataFrame): DataFrame containing accelerometer sensor data with 'x', 'y', 'z' columns.
         gyro_data (pandas.DataFrame): DataFrame containing gyroscope sensor data with 'x', 'y', 'z' columns.
-        filter_length (int): The length of the moving average filter. Defaults to 25.
+        filter_order (int): The order of the median filter (kernel size). Defaults to 5.
 
     Returns:
         tuple: A tuple containing two DataFrames:
                - DataFrame containing the filtered accelerometer sensor data.
                - DataFrame containing the filtered gyroscope sensor data.
+
+    Raises:
+        ValueError: If the filtering fails due to an inappropriate filter order.
     """
-    # Create the filter kernel (uniform weights)
-    filter_kernel = np.ones(filter_length) / filter_length
+    try:
+        # Apply median filter to each axis for accelerometer data
+        filtered_acc_x = medfilt(acc_data['x'], kernel_size=filter_order)
+        filtered_acc_y = medfilt(acc_data['y'], kernel_size=filter_order)
+        filtered_acc_z = medfilt(acc_data['z'], kernel_size=filter_order)
 
-    # Apply moving average filter to each axis for accelerometer and gyroscope data
-    filtered_acc_data = acc_data.copy()
-    filtered_gyro_data = gyro_data.copy()
+        # Create a new DataFrame for the filtered accelerometer data
+        filtered_acc_data = acc_data.copy()
+        filtered_acc_data['x'] = filtered_acc_x
+        filtered_acc_data['y'] = filtered_acc_y
+        filtered_acc_data['z'] = filtered_acc_z
 
-    for axis in ['x', 'y', 'z']:
-        filtered_acc_data[axis] = np.convolve(acc_data[axis], filter_kernel, mode='same')
-        filtered_gyro_data[axis] = np.convolve(gyro_data[axis], filter_kernel, mode='same')
+        # Apply median filter to each axis for gyroscope data
+        filtered_gyro_x = medfilt(gyro_data['x'], kernel_size=filter_order)
+        filtered_gyro_y = medfilt(gyro_data['y'], kernel_size=filter_order)
+        filtered_gyro_z = medfilt(gyro_data['z'], kernel_size=filter_order)
 
-    return filtered_acc_data, filtered_gyro_data
+        # Create a new DataFrame for the filtered gyroscope data
+        filtered_gyro_data = gyro_data.copy()
+        filtered_gyro_data['x'] = filtered_gyro_x
+        filtered_gyro_data['y'] = filtered_gyro_y
+        filtered_gyro_data['z'] = filtered_gyro_z
+
+        return filtered_acc_data, filtered_gyro_data
+    except ValueError as e:
+        print(f"Filtering failed due to inappropriate filter order. Error: {e}")
+        raise
 
 
 # 5. Mirror hand gestures based on the right hand (for left-handed subjects only)
