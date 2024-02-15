@@ -1,6 +1,8 @@
 # Configuration files
 config/imu_config.json
 config/mando_config.json
+config/mean_std_values_3.json
+
 annotations/time_sync.json
 
 # Dataset
