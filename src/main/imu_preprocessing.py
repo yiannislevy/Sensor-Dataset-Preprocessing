@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
-from scipy.signal import firwin, lfilter
+from scipy.signal import firwin, lfilter, medfilt
 
 
 # 1. Sync data based on their common time range
@@ -218,32 +218,41 @@ def transform_data(acc_data, gyro_data):
 
 
 # 8. Standardize the data (subtract the mean and divide by the standard deviation)
-def standardize_data(acc_data, gyro_data):
+def standardize_data(acc_data, gyro_data, mean_std_path):
     """
-    Standardize the sensor data by subtracting the mean and dividing by the standard deviation for each axis.
+    Standardizes the accelerometer and gyroscope sensor data using pre-calculated mean and standard deviation values
+    for each axis from a JSON file, while keeping the timestamp column intact.
 
     Args:
-        acc_data (pandas.DataFrame): DataFrame containing accelerometer sensor data with 'x', 'y', and 'z' columns.
-        gyro_data (pandas.DataFrame): DataFrame containing gyroscope sensor data with 'x', 'y', and 'z' columns.
+        acc_data (pandas.DataFrame): DataFrame containing accelerometer sensor data with timestamp, 'x', 'y', and 'z' columns.
+        gyro_data (pandas.DataFrame): DataFrame containing gyroscope sensor data with timestamp, 'x', 'y', and 'z' columns.
+        mean_std_path (str): Path to the JSON file containing pre-calculated mean and standard deviation values.
 
     Returns:
         tuple of pandas.DataFrame: Tuple containing the standardized accelerometer and gyroscope DataFrames.
-
-    Raises:
-        ValueError: If standardization fails due to data issues.
     """
     try:
-        standardized_acc_data = acc_data.copy()
-        for axis in ['x', 'y', 'z']:
-            axis_mean = acc_data[axis].mean()
-            axis_std = acc_data[axis].std()
-            standardized_acc_data[axis] = (acc_data[axis] - axis_mean) / axis_std
+        # Load pre-calculated mean and standard deviation values
+        with open(mean_std_path, 'r') as f:
+            mean_std = json.load(f)
 
+        # Extract means and standard deviations
+        means = mean_std['means']
+        std_devs = mean_std['std_devs']
+
+        # The order of means and std_devs is assumed to be [a_x, a_y, a_z, g_x, g_y, g_z]
+        axis_labels = ['x', 'y', 'z']
+
+        standardized_acc_data = acc_data.copy()
         standardized_gyro_data = gyro_data.copy()
-        for axis in ['x', 'y', 'z']:
-            axis_mean = gyro_data[axis].mean()
-            axis_std = gyro_data[axis].std()
-            standardized_gyro_data[axis] = (gyro_data[axis] - axis_mean) / axis_std
+
+        # Standardize accelerometer data
+        for i, axis in enumerate(axis_labels):
+            standardized_acc_data[axis] = (acc_data[axis] - means[i]) / std_devs[i]
+
+        # Standardize gyroscope data
+        for i, axis in enumerate(axis_labels):
+            standardized_gyro_data[axis] = (gyro_data[axis] - means[i + 3]) / std_devs[i + 3]
 
         return standardized_acc_data, standardized_gyro_data
     except ValueError as e:

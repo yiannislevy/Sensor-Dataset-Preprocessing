@@ -29,6 +29,7 @@ def main():
     gravity_filter_cutoff_hz = config['filtering']['gravity_filter_cutoff_hz']
     left_handed_subjects = config['processing_options']['left_handed_subjects']
     saving_format = config['saving_options']['file_format']
+    path_to_mean_std = config['standardization']['path_to_mean_std']
 
     # Ensure processed_micromovements data directory exists
     Path(processed_data_directory).mkdir(parents=True, exist_ok=True)
@@ -62,7 +63,7 @@ def main():
                 acc_data, gyro_data = resample(acc_data, gyro_data, upsample_frequency)
 
                 # Remove earth's gravity from accelerometer data
-                acc_data = remove_gravity(acc_data, upsample_frequency, gravity_filter_cutoff_hz) # TODO : Check its what paper says
+                acc_data = remove_gravity(acc_data, upsample_frequency, gravity_filter_cutoff_hz)
 
                 # Apply moving average filter
                 acc_data, gyro_data = median_filter(acc_data, gyro_data, filter_length)
@@ -72,14 +73,13 @@ def main():
                     acc_data, gyro_data = mirror_left_to_right(acc_data, gyro_data)
 
                 # Align data with Microsoft's Band 2 Watch orientation standard
-                # acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data) # TODO : uncomment and integrate
+                acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data)
 
                 # Transform units
                 acc_data, gyro_data = transform_data(acc_data, gyro_data)
 
                 # Standardize
-                # acc_data, gyro_data = standardize_data(acc_data, gyro_data) # TODO : Change way of implementing that
-                #  (advise BiteDetection's repo ->src/utils/cnn_steps.py 'standardize'
+                acc_data, gyro_data = standardize_data(acc_data, gyro_data, path_to_mean_std)
 
                 # Combine accelerometer and gyroscope data
                 combined_data = combine_sensor_data(acc_data, gyro_data)
