@@ -12,8 +12,6 @@ from src.main.imu_preprocessing import (sync, resample, remove_gravity, median_f
 # TODO add mandometer in the pipeline
 # TODO add documentation
 # TODO modify README
-# TODO modify requirements.txt
-# TODO add tests
 # TODO remove unnecessary files like align_data or start_end, pipe_test etc [notebooks]
 
 # NOTE : PAPER IN QUESTION --> Modeling Wrist Micromovements
