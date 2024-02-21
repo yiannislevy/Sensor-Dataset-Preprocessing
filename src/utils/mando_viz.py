@@ -1,10 +1,11 @@
 import plotly.graph_objects as go
+import numpy as np
 
 
 def plot_annotated_meal(meal_data):
     """
-    Plot the meal weight over time. Shows linear decrease during bites and
-    flat lines at other times.
+    Plot the meal weight over time with vertical lines at the start of each bite,
+    indicating bite events. These lines are parallel to the y-axis and span the entire plot height.
 
     Parameters:
     - meal_data (dict): Dictionary with meal and bite data.
@@ -15,11 +16,21 @@ def plot_annotated_meal(meal_data):
     bites = meal_data['meals'][0]['bites']
     initial_weight = sum(b['bite_weight'] for b in bites if b['bite_weight'])
     weight_timeline = [(0, initial_weight)]
+    vertical_lines = []
 
     for b in bites:
         if b['bite_weight']:
             weight_timeline.append((b['bite_start_t'], weight_timeline[-1][1]))
             weight_timeline.append((b['bite_end_t'], weight_timeline[-1][1] - b['bite_weight']))
+            # Define a vertical line at the start of the bite
+            vertical_lines.append({'type': 'line',
+                                   'x0': b['bite_start_t'],
+                                   'y0': 0,
+                                   'x1': b['bite_start_t'],
+                                   'y1': 1,
+                                   'xref': 'x',
+                                   'yref': 'paper',
+                                   'line': {'color': 'red', 'width': 1}})
 
     # Extend the last point beyond the last bite for better visualization
     weight_timeline.append((weight_timeline[-1][0] + 10, weight_timeline[-1][1]))
@@ -28,13 +39,12 @@ def plot_annotated_meal(meal_data):
     time, weights = zip(*weight_timeline)
 
     fig = go.Figure(data=go.Scatter(x=time, y=weights, mode='lines', line=dict(color='green')))
-    fig.update_layout(title='Meal Weight Over Time', xaxis_title='Time (sec)', yaxis_title='Weight (g)')
+    fig.update_layout(title='Meal Weight Over Time',
+                      xaxis_title='Time (sec)',
+                      yaxis_title='Weight (g)',
+                      shapes=vertical_lines)  # Add the vertical lines here
 
     return fig
-
-
-import numpy as np
-import plotly.graph_objs as go
 
 
 def plot_comparison(ground_truth_data, estimated_data):
@@ -88,4 +98,3 @@ def plot_comparison(ground_truth_data, estimated_data):
 # Assuming 'ground_truth_data' and 'estimated_data' are already defined and processed
 # fig = plot_comparison(ground_truth_data, estimated_data)
 # fig.show()
-
