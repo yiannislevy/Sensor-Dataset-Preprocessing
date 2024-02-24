@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
 from scipy.signal import firwin, lfilter, medfilt
+import json
 
 
 # 1. Sync data based on their common time range
@@ -84,7 +85,7 @@ def remove_gravity(data, sample_rate=100, cutoff_hz=1):
     Returns:
         pandas.DataFrame: DataFrame with the filtered accelerometer data.
     """
-    num_taps = sample_rate * 5 + 1 # TODO : Can that become 512 tap delay?
+    num_taps = sample_rate * 5 + 1
 
     hp_filter = firwin(num_taps, cutoff_hz / (sample_rate / 2), pass_zero=False)
 
