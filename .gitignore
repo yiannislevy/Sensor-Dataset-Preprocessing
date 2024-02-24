@@ -8,6 +8,7 @@ annotations/time_sync.json
 # Dataset
 data/raw/*
 data/processed/*
+data
 
 # Python cache files
 __pycache__/
@@ -32,6 +33,7 @@ Thumbs.db
 # Jupyter notebook checkpoints and files
 .ipynb_checkpoints/
 notebooks/viewdata.ipynb
+notebooks/process_one.ipynb
 
 setup.py
 
