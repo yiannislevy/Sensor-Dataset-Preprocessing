@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 
 # Path to the annotation file
-file_path = 'processed_micromovements/bites/bite_events_19.txt'
+file_path = '../processed_micromovements/bites/bite_events_19.txt'
 
 subject_id = 19
 

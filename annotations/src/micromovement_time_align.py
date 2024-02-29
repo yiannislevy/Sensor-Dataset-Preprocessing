@@ -42,11 +42,11 @@ def process_subject_file(subject_id, subject_sync_info):
 
 
 # Load the synchronization information
-sync_filename = 'time_sync.json'
+sync_filename = '../time_sync.json'
 with open(sync_filename, 'r') as file:
     sync_data = json.load(file)
 
-os.makedirs('processed_micromovements', exist_ok=True)
+os.makedirs('../processed_micromovements', exist_ok=True)
 
 # Process each subject file
 for subject_sync_info in sync_data["sync_info"]:

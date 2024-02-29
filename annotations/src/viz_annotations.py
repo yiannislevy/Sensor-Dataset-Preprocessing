@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
 
-def plot_eating_style(intervals, window_size=3):
+def plot_eating_style(intervals, subject_id, window_size=3):
     """
     Plot bite intervals, their moving average, and a linear regression line.
 
@@ -26,11 +26,11 @@ def plot_eating_style(intervals, window_size=3):
     plt.plot(x, lin_reg_line, 'g--', label='Linear Regression', linewidth=2)
 
     # Enhancing the plot
-    plt.title('Analysis of Eating Behavior', fontsize=16)
+    plt.title(f'Analysis of Eating Behavior for Subject {subject_id}', fontsize=16)
     plt.xlabel('Bite Number', fontsize=14)
     plt.ylabel('Interval Between Bites (seconds)', fontsize=14)
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-
+    plt.savefig(f'eating_style_{subject_id}.png')
     plt.show()

@@ -46,7 +46,7 @@ def calculate_video_imu_time_difference(sync_info):
 
 
 # Load JSON data
-path = "time_sync.json"
+path = "../time_sync.json"
 with open(path, 'r') as file:
     data = json.load(file)
 
