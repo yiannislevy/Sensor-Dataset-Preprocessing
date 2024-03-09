@@ -5,6 +5,7 @@ import pandas as pd
 from scipy.signal import savgol_filter
 # TODO cleanup code
 
+
 def preprocess_mandometer_data(file_path, plate_weight=200, window_size=5, polyorder=2):
     """
     Preprocesses raw Mandometer data from a text file. This involves removing jitter,
@@ -93,6 +94,7 @@ def linear_resample(data, target_freq):
     resampled_df = df.reindex(target_timestamps).interpolate(method='linear')
 
     return resampled_df
+
 
 # TODO evaluate its ability to detect bites and then keep it or not
 def process_meal_data(data, stability_range=3, max_decrease=70):
