@@ -42,54 +42,50 @@ def main():
                 print(f"Skipping subject {subject_id} because it contains '**'")
                 continue
 
-            # Construct the path to the subject's data
-            subject_data_path = os.path.join(raw_data_directory, subject_id)
+            meal_folders = [f for f in subject_path.iterdir() if f.is_dir() and f.name.startswith('meal_')]
 
-            # Check if the subject's data has already been processed_micromovements
-            if check_already_processed(subject_id, processed_data_directory, saving_format):
-                print(f"Subject {subject_id} has already been processed with this file format. Skipping.")
-                continue
+            # If meal_x folders are found, process each one
+            if meal_folders:
+                for meal_folder in meal_folders:
+                    process_session(meal_folder, subject_id + '_' + meal_folder.name, processed_data_directory, upsample_frequency, filter_length, gravity_filter_cutoff_hz, left_handed_subjects, saving_format, path_to_mean_std)
+            else:
+                # No meal_x folders found, process the subject's main directory
+                process_session(subject_path, subject_id, processed_data_directory, upsample_frequency, filter_length, gravity_filter_cutoff_hz, left_handed_subjects, saving_format, path_to_mean_std)
 
-            try:
-                # Load raw sensor data
-                acc_data, gyro_data = load_raw_sensor_data(subject_data_path)
 
-                # Sync the data
-                acc_data, gyro_data = sync(acc_data, gyro_data)
+def process_session(folder_path, identifier, processed_data_directory, upsample_frequency, filter_length, gravity_filter_cutoff_hz, left_handed_subjects, saving_format, path_to_mean_std):
+    if check_already_processed(identifier, processed_data_directory, saving_format):
+        print(f"{identifier} has already been processed. Skipping.")
+        return
 
-                # Resample the data
-                acc_data, gyro_data = resample(acc_data, gyro_data, upsample_frequency)
+    try:
+        acc_data, gyro_data = load_raw_sensor_data(folder_path)
 
-                # Remove earth's gravity from accelerometer data
-                acc_data = remove_gravity(acc_data, upsample_frequency, gravity_filter_cutoff_hz)
+        acc_data, gyro_data = sync(acc_data, gyro_data)
 
-                # Apply moving average filter
-                acc_data, gyro_data = median_filter(acc_data, gyro_data, filter_length)
+        acc_data, gyro_data = resample(acc_data, gyro_data, upsample_frequency)
 
-                # If subject is left-handed, mirror the data
-                if int(subject_id) in left_handed_subjects:
-                    acc_data, gyro_data = mirror_left_to_right(acc_data, gyro_data)
+        acc_data = remove_gravity(acc_data, upsample_frequency, gravity_filter_cutoff_hz)
 
-                # Align data with Microsoft's Band 2 Watch orientation standard
-                acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data)
+        acc_data, gyro_data = median_filter(acc_data, gyro_data, filter_length)
 
-                # Transform units
-                acc_data, gyro_data = transform_data(acc_data, gyro_data)
+        if int(identifier.split('_')[0]) in left_handed_subjects:
+            acc_data, gyro_data = mirror_left_to_right(acc_data, gyro_data)
 
-                # Standardize
-                acc_data, gyro_data = standardize_data(acc_data, gyro_data, path_to_mean_std)
+        acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data)
 
-                # Combine accelerometer and gyroscope data
-                combined_data = combine_sensor_data(acc_data, gyro_data)
+        acc_data, gyro_data = transform_data(acc_data, gyro_data)
 
-                # Save the processed_micromovements data
-                save_data(combined_data, processed_data_directory, subject_id, saving_format)
+        acc_data, gyro_data = standardize_data(acc_data, gyro_data, path_to_mean_std)
 
-                print(f"Processing complete for subject {subject_id}")
+        combined_data = combine_sensor_data(acc_data, gyro_data)
 
-            except Exception as e:
-                print(f"An error occurred while processing subject {subject_id}: {e}")
-                continue
+        save_data(combined_data, processed_data_directory, identifier, saving_format)
+
+        print(f"Processing complete for {identifier}")
+
+    except Exception as e:
+        print(f"An error occurred while processing {identifier}: {e}")
 
 
 if __name__ == "__main__":
