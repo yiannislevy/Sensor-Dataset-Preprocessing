@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
-from scipy.signal import firwin, lfilter, medfilt
+from scipy.signal import firwin, filtfilt, medfilt
 import json
 
 
@@ -89,9 +89,9 @@ def remove_gravity(data, sample_rate=100, cutoff_hz=1):
 
     hp_filter = firwin(num_taps, cutoff_hz / (sample_rate / 2), pass_zero=False)
 
-    data['x'] = lfilter(hp_filter, 1.0, data['x'])
-    data['y'] = lfilter(hp_filter, 1.0, data['y'])
-    data['z'] = lfilter(hp_filter, 1.0, data['z'])
+    data['x'] = filtfilt(hp_filter, 1.0, data['x'])
+    data['y'] = filtfilt(hp_filter, 1.0, data['y'])
+    data['z'] = filtfilt(hp_filter, 1.0, data['z'])
 
     return data
 
