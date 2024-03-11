@@ -59,27 +59,39 @@ def process_session(folder_path, identifier, processed_data_directory, upsample_
         return
 
     try:
+        # Load raw sensor data
         acc_data, gyro_data = load_raw_sensor_data(folder_path)
 
+        # Sync the data
         acc_data, gyro_data = sync(acc_data, gyro_data)
 
+        # Resample the data
         acc_data, gyro_data = resample(acc_data, gyro_data, upsample_frequency)
 
+        # Remove earth's gravity from accelerometer data
         acc_data = remove_gravity(acc_data, upsample_frequency, gravity_filter_cutoff_hz)
 
+        # Apply moving average filter
         acc_data, gyro_data = median_filter(acc_data, gyro_data, filter_length)
 
+        # If subject is left-handed, mirror the data
         if int(identifier.split('_')[0]) in left_handed_subjects:
             acc_data, gyro_data = mirror_left_to_right(acc_data, gyro_data)
 
+        # Align data with Microsoft's Band 2 Watch orientation standard
         acc_data, gyro_data = align_old_msft_watch(acc_data, gyro_data)
 
+        # Transform units from m/s^2 and rad/s to g and deg/s
         acc_data, gyro_data = transform_data(acc_data, gyro_data)
 
-        acc_data, gyro_data = standardize_data(acc_data, gyro_data, path_to_mean_std)
+        # Standardize with values from FIC's dataset
+        acc_data, gyro_data = standardize_data(acc_data, gyro_data, path_to_mean_std) # TODO standardize with own values
+        # and for mm/bite detection model with FIC's
 
+        # Combine accelerometer and gyroscope data
         combined_data = combine_sensor_data(acc_data, gyro_data)
 
+        # Save the preprocessed data
         save_data(combined_data, processed_data_directory, identifier, saving_format)
 
         print(f"Processing complete for {identifier}")
