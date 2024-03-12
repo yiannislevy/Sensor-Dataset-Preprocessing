@@ -103,7 +103,7 @@ Since mandometer does not offer the option to save timestamp data along weight (
 2. Note the sensor's timestamp.
 3. Note the video's timestamp (preferably relative to its start for simplicity).
 4. Find a commonly identifiable event between the video and weight data.
-5. Note the weight's timestamp relative to its start (1 sample = 1 second, since 1hz)
+5. Note the weight's timestamp relative to its start (MEDIAN: 1 sample ~= 1 second -> 1Hz ||| AVERAGE: 1 sample ~= 1.07 second -> 0.94Hz)
 6. Note the video's timestamp.
 7. Calculate the relative difference of sensor and weight events from video timestamps.
 8. The mandometer's start time is the sensor's event timestamp (it's our reference) + the relative difference (from 7) - the weight's timestamp (from 5)
