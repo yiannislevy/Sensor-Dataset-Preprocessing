@@ -45,18 +45,19 @@ def calculate_video_imu_time_difference(sync_info):
     return time_difference
 
 
-# Load JSON data
-path = "../time_sync.json"
-with open(path, 'r') as file:
-    data = json.load(file)
+def run_annotation_pipeline():
+    # Load JSON data
+    path = "../time_sync.json"
+    with open(path, 'r') as file:
+        data = json.load(file)
 
-# Process each subject using the simplified approach
-for subject in data["sync_info"]:
-    mando_real_start_time = calculate_mando_start_time(subject)
-    subject["mando_real_start_time"] = mando_real_start_time
-    dt = calculate_video_imu_time_difference(subject)
-    subject["video_imu_time_difference"] = str(dt)[:-2]
+    # Process each subject using the simplified approach
+    for subject in data["sync_info"]:
+        mando_real_start_time = calculate_mando_start_time(subject)
+        subject["mando_real_start_time"] = mando_real_start_time
+        dt = calculate_video_imu_time_difference(subject)
+        subject["video_imu_time_difference"] = str(dt)[:-2]
 
-# Save the updated data back to the JSON file
-with open(path, 'w') as file:
-    json.dump(data, file, indent=4)
+    # Save the updated data back to the JSON file
+    with open(path, 'w') as file:
+        json.dump(data, file, indent=4)
