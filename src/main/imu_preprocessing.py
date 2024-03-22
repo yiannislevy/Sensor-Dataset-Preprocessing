@@ -34,7 +34,7 @@ def sync(acc_data, gyro_data):
 
 
 # 2. Resample data to a common frequency
-def resample(acc_data, gyro_data, target_freq):
+def resample(acc_data, gyro_data, target_freq=100):
     """
     Resamples synchronized accelerometer and gyroscope data to a common frequency.
 

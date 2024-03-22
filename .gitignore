@@ -39,6 +39,9 @@ setup.py
 
 
 annotations/processed_micromovements
+annotations/archive
+annotations/annotation_tutorial.md
+
 R19
 data/test_data
 docs/smartwatch_orientation_manual.pdf
