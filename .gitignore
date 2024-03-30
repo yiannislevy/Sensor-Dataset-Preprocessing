@@ -38,9 +38,10 @@ notebooks/process_one.ipynb
 setup.py
 
 
-annotations/processed_micromovements
+annotations/processed_events
 annotations/archive
 annotations/annotation_tutorial.md
+annotations/progress.md
 
 R19
 data/test_data
