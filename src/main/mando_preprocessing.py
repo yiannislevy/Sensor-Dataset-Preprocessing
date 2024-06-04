@@ -1,9 +1,6 @@
 import numpy as np
-from scipy.signal import savgol_filter
-
 import pandas as pd
 from scipy.signal import savgol_filter
-# TODO cleanup code
 
 
 def preprocess_mandometer_data(file_path, plate_weight=200, window_size=5, polyorder=2):
@@ -62,8 +59,6 @@ def classify_and_segment_data(data, stability_threshold=0.5):
     # Classify as stable (0) or unstable (1) based on the rate of change
     stability_classification = (rate_of_change > stability_threshold).astype(int)
 
-    # TODO: Implement specific logic for segmenting data into eating events
-
     return stability_classification
 
 
@@ -96,7 +91,6 @@ def linear_resample(data, target_freq):
     return resampled_df
 
 
-# TODO evaluate its ability to detect bites and then keep it or not
 def process_meal_data(data, stability_range=3, max_decrease=70):
     """
     Process the meal weight data to ensure decreases are within specified limits and stable.
