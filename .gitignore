@@ -33,7 +33,7 @@ Thumbs.db
 # Jupyter notebook checkpoints and files
 .ipynb_checkpoints/
 notebooks/viewdata.ipynb
-notebooks/process_one.ipynb
+notebooks/archive/process_one.ipynb
 
 setup.py
 
