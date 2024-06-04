@@ -322,11 +322,25 @@ def resample_simple_common_timestamp(acc_data, gyro_data, target_freq):
     return interpolated_acc, interpolated_gyro
 
 
-# TODO documentation for both below
 # Alternative sync and resample functions
-
-
 def upsample_sensor_data(sensor_data, target_freq):
+    """
+        Upsample sensor data to a target frequency using linear interpolation.
+
+        This function converts the 'time' column of the input sensor data to datetime format,
+        generates a new time range at the desired target frequency, converts timestamps to a numeric
+        format suitable for interpolation, and performs linear interpolation for each axis ('x', 'y', 'z').
+        After interpolation, it converts the numeric times back to datetime timestamps.
+
+        Args:
+            sensor_data (pandas.DataFrame): DataFrame containing sensor data with columns 'time', 'x', 'y', and 'z'.
+            target_freq (int): The target frequency in Hz to which the data will be upsampled.
+
+        Returns:
+            pandas.DataFrame: DataFrame containing upsampled sensor data with original columns including 'time'.
+
+        The function assumes that the 'time' column is appropriately formatted to allow datetime operations.
+    """
     # Ensure the time column is in datetime format
     sensor_data['time'] = pd.to_datetime(sensor_data['time'])
 
@@ -352,6 +366,24 @@ def upsample_sensor_data(sensor_data, target_freq):
 
 
 def upsample_and_sync(acc_data, gyro_data, target_freq):
+    """
+        Upsample accelerometer and gyroscope data to a target frequency and synchronize their timestamps.
+
+        This function first upsamples both accelerometer and gyroscope data to the specified target frequency.
+        It then identifies the common timeframe between the upsampled datasets and trims them accordingly to ensure
+        they are synchronized. The function also includes diagnostics by plotting the resampled accelerometer data
+        and printing its frequency to verify the upsampling process.
+
+        Args:
+            acc_data (pandas.DataFrame): DataFrame containing accelerometer data with 'time' column.
+            gyro_data (pandas.DataFrame): DataFrame containing gyroscope data with 'time' column.
+            target_freq (int): The target frequency in Hz for upsampling.
+
+        Returns:
+            tuple of pandas.DataFrame: A tuple containing the synchronized, upsampled accelerometer and gyroscope DataFrames.
+
+        The function assumes both input data sets are formatted with a 'time' column that can be manipulated as datetime.
+    """
     # Upsample accelerometer data
     acc_resampled = upsample_sensor_data(acc_data, target_freq)
 
