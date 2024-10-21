@@ -93,24 +93,7 @@ Adjust the configuration file `config/config.json` to specify the following para
 - `moving_average_filter_length`: The length of the moving average filter.
 - `gravity_filter_cutoff_hz`: The cutoff frequency for the low-pass filter used.
 - `left_handed_subjects`: A list of subject IDs that are left handed.
-- `file_format`: Format of the file to be saved. Can choose between parquet, pickle, csv.
-
-## Mandometer Manual Time Alignment Instructions
-
-Since mandometer does not offer the option to save timestamp data along weight (in grams) we devised a manual way to do so in order to align the weight data with the sensor data, using video recordings. The following steps are required:
-
-1. Find a commonly identifiable event between the video and sensor data.
-2. Note the sensor's timestamp.
-3. Note the video's timestamp (preferably relative to its start for simplicity).
-4. Find a commonly identifiable event between the video and weight data.
-5. Note the weight's timestamp relative to its start (MEDIAN: 1 sample ~= 1 second -> 1Hz ||| AVERAGE: 1 sample ~= 1.07 second -> 0.94Hz)
-6. Note the video's timestamp.
-7. Calculate the relative difference of sensor and weight events from video timestamps.
-8. The mandometer's start time is the sensor's event timestamp (it's our reference) + the relative difference (from 7) - the weight's timestamp (from 5)
-
-## Documentation
-
-Documentation for the project can be found in the `docs` directory (pending).
+- `file_format`: Format of the file to be saved. Can choose between pickle, parquet, csv (pickle preferred).
 
 ## License
 
