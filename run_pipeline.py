@@ -8,12 +8,9 @@ from src.main.imu_data_io import load_raw_sensor_data, save_data, check_already_
 from src.main.imu_preprocessing import (sync, resample, remove_gravity, median_filter, mirror_left_to_right,
                                         align_old_msft_watch, standardize_data, transform_data, combine_sensor_data)
 
-
-# TODO add mandometer in the pipeline
 # TODO add documentation
 # TODO modify README
-# TODO remove unnecessary files like align_data or start_end, pipe_test etc [notebooks]
-
+# TODO RE-RUN WITH PROPER NORMALISATION (= NO NORMALISATION- WE NORMALISE BEFORE INPUT TO EACH MODEL)
 # NOTE : PAPER IN QUESTION --> Modeling Wrist Micromovements
 def main():
     # Load configuration
@@ -85,8 +82,7 @@ def process_session(folder_path, identifier, processed_data_directory, upsample_
         acc_data, gyro_data = transform_data(acc_data, gyro_data)
 
         # Standardize with values from FIC's dataset
-        acc_data, gyro_data = standardize_data(acc_data, gyro_data, path_to_mean_std) # TODO standardize with own values
-        # and for mm/bite detection model with FIC's
+        # acc_data, gyro_data = standardize_data(acc_data, gyro_data, path_to_mean_std)
 
         # Combine accelerometer and gyroscope data
         combined_data = combine_sensor_data(acc_data, gyro_data)

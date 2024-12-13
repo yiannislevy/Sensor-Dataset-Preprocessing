@@ -1,0 +1,306 @@
+{
+    "subject_id": "18",
+    "bites": [
+        {
+            "bite_id": 1,
+            "start_seconds": 14.189,
+            "end_seconds": 16.612,
+            "duration_seconds": 2.423,
+            "weight": 12
+        },
+        {
+            "bite_id": 2,
+            "start_seconds": 22.386,
+            "end_seconds": 25.668,
+            "duration_seconds": 3.282,
+            "weight": 3
+        },
+        {
+            "bite_id": 3,
+            "start_seconds": 27.747,
+            "end_seconds": 35.785,
+            "duration_seconds": 8.038,
+            "weight": 8
+        },
+        {
+            "bite_id": 4,
+            "start_seconds": 47.121,
+            "end_seconds": 52.22,
+            "duration_seconds": 5.099,
+            "weight": 6
+        },
+        {
+            "bite_id": 5,
+            "start_seconds": 58.476,
+            "end_seconds": 63.107,
+            "duration_seconds": 4.631,
+            "weight": 5
+        },
+        {
+            "bite_id": 6,
+            "start_seconds": 74.295,
+            "end_seconds": 78.266,
+            "duration_seconds": 3.971,
+            "weight": 3
+        },
+        {
+            "bite_id": 7,
+            "start_seconds": 86.46,
+            "end_seconds": 91.247,
+            "duration_seconds": 4.787,
+            "weight": 9
+        },
+        {
+            "bite_id": 8,
+            "start_seconds": 109.047,
+            "end_seconds": 113.67,
+            "duration_seconds": 4.623,
+            "weight": 5
+        },
+        {
+            "bite_id": 9,
+            "start_seconds": 113.703,
+            "end_seconds": 119.057,
+            "duration_seconds": 5.354,
+            "weight": 7
+        },
+        {
+            "bite_id": 10,
+            "start_seconds": 144.028,
+            "end_seconds": 150.858,
+            "duration_seconds": 6.83,
+            "weight": 12
+        },
+        {
+            "bite_id": 11,
+            "start_seconds": 161.544,
+            "end_seconds": 167.248,
+            "duration_seconds": 5.704,
+            "weight": 6
+        },
+        {
+            "bite_id": 12,
+            "start_seconds": 169.014,
+            "end_seconds": 177.062,
+            "duration_seconds": 8.048,
+            "weight": 8
+        },
+        {
+            "bite_id": 13,
+            "start_seconds": 190.328,
+            "end_seconds": 195.82,
+            "duration_seconds": 5.492,
+            "weight": 7
+        },
+        {
+            "bite_id": 14,
+            "start_seconds": 195.853,
+            "end_seconds": 204.798,
+            "duration_seconds": 8.945,
+            "weight": 8
+        },
+        {
+            "bite_id": 15,
+            "start_seconds": 213.491,
+            "end_seconds": 218.84,
+            "duration_seconds": 5.349,
+            "weight": 7
+        },
+        {
+            "bite_id": 16,
+            "start_seconds": 234.43,
+            "end_seconds": 238.393,
+            "duration_seconds": 3.963,
+            "weight": 6
+        },
+        {
+            "bite_id": 17,
+            "start_seconds": 253.713,
+            "end_seconds": 259.798,
+            "duration_seconds": 6.085,
+            "weight": 11
+        },
+        {
+            "bite_id": 18,
+            "start_seconds": 272.736,
+            "end_seconds": 277.982,
+            "duration_seconds": 5.246,
+            "weight": 11
+        },
+        {
+            "bite_id": 19,
+            "start_seconds": 297.038,
+            "end_seconds": 302.194,
+            "duration_seconds": 5.156,
+            "weight": 9
+        },
+        {
+            "bite_id": 20,
+            "start_seconds": 310.556,
+            "end_seconds": 314.106,
+            "duration_seconds": 3.55,
+            "weight": 7
+        },
+        {
+            "bite_id": 21,
+            "start_seconds": 339.088,
+            "end_seconds": 342.856,
+            "duration_seconds": 3.768,
+            "weight": 10
+        },
+        {
+            "bite_id": 22,
+            "start_seconds": 357.241,
+            "end_seconds": 367.13,
+            "duration_seconds": 9.889,
+            "weight": 8
+        },
+        {
+            "bite_id": 23,
+            "start_seconds": 375.4,
+            "end_seconds": 383.162,
+            "duration_seconds": 7.762,
+            "weight": 5
+        },
+        {
+            "bite_id": 24,
+            "start_seconds": 393.941,
+            "end_seconds": 399.972,
+            "duration_seconds": 6.031,
+            "weight": 9
+        },
+        {
+            "bite_id": 25,
+            "start_seconds": 417.765,
+            "end_seconds": 424.067,
+            "duration_seconds": 6.302,
+            "weight": 8
+        },
+        {
+            "bite_id": 26,
+            "start_seconds": 431.236,
+            "end_seconds": 436.462,
+            "duration_seconds": 5.226,
+            "weight": 4
+        },
+        {
+            "bite_id": 27,
+            "start_seconds": 445.88,
+            "end_seconds": 450.495,
+            "duration_seconds": 4.615,
+            "weight": 7
+        },
+        {
+            "bite_id": 28,
+            "start_seconds": 455.204,
+            "end_seconds": 459.844,
+            "duration_seconds": 4.64,
+            "weight": 6
+        },
+        {
+            "bite_id": 29,
+            "start_seconds": 469.331,
+            "end_seconds": 474.605,
+            "duration_seconds": 5.274,
+            "weight": 6
+        },
+        {
+            "bite_id": 30,
+            "start_seconds": 482.649,
+            "end_seconds": 486.867,
+            "duration_seconds": 4.218,
+            "weight": 6
+        },
+        {
+            "bite_id": 31,
+            "start_seconds": 493.503,
+            "end_seconds": 499.557,
+            "duration_seconds": 6.054,
+            "weight": 6
+        },
+        {
+            "bite_id": 32,
+            "start_seconds": 501.005,
+            "end_seconds": 508.137,
+            "duration_seconds": 7.132,
+            "weight": 6
+        },
+        {
+            "bite_id": 33,
+            "start_seconds": 539.273,
+            "end_seconds": 545.62,
+            "duration_seconds": 6.347,
+            "weight": 5
+        },
+        {
+            "bite_id": 34,
+            "start_seconds": 548.139,
+            "end_seconds": 549.748,
+            "duration_seconds": 1.609,
+            "weight": 0
+        },
+        {
+            "bite_id": 35,
+            "start_seconds": 553.883,
+            "end_seconds": 557.078,
+            "duration_seconds": 3.195,
+            "weight": 3
+        },
+        {
+            "bite_id": 36,
+            "start_seconds": 557.144,
+            "end_seconds": 561.149,
+            "duration_seconds": 4.005,
+            "weight": 2
+        },
+        {
+            "bite_id": 37,
+            "start_seconds": 568.913,
+            "end_seconds": 575.77,
+            "duration_seconds": 6.857,
+            "weight": 5
+        },
+        {
+            "bite_id": 38,
+            "start_seconds": 601.692,
+            "end_seconds": 607.325,
+            "duration_seconds": 5.633,
+            "weight": 4
+        },
+        {
+            "bite_id": 39,
+            "start_seconds": 614.375,
+            "end_seconds": 621.424,
+            "duration_seconds": 7.049,
+            "weight": 1
+        },
+        {
+            "bite_id": 40,
+            "start_seconds": 644.403,
+            "end_seconds": 650.013,
+            "duration_seconds": 5.61,
+            "weight": 6
+        },
+        {
+            "bite_id": 41,
+            "start_seconds": 651.294,
+            "end_seconds": 658.83,
+            "duration_seconds": 7.536,
+            "weight": 1
+        },
+        {
+            "bite_id": 42,
+            "start_seconds": 658.939,
+            "end_seconds": 667.667,
+            "duration_seconds": 8.728,
+            "weight": 0
+        },
+        {
+            "bite_id": 43,
+            "start_seconds": 667.676,
+            "end_seconds": 673.652,
+            "duration_seconds": 5.976,
+            "weight": 0
+        }
+    ]
+}

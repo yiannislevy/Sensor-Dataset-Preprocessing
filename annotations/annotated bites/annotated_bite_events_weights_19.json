@@ -1,0 +1,243 @@
+{
+    "subject_id": "19",
+    "bites": [
+        {
+            "bite_id": 1,
+            "start_seconds": 38.807,
+            "end_seconds": 41.139,
+            "duration_seconds": 2.332,
+            "weight": 16
+        },
+        {
+            "bite_id": 2,
+            "start_seconds": 42.81,
+            "end_seconds": 46.28,
+            "duration_seconds": 3.47,
+            "weight": 21
+        },
+        {
+            "bite_id": 3,
+            "start_seconds": 52.353,
+            "end_seconds": 55.469,
+            "duration_seconds": 3.116,
+            "weight": 19
+        },
+        {
+            "bite_id": 4,
+            "start_seconds": 64.298,
+            "end_seconds": 68.749,
+            "duration_seconds": 4.451,
+            "weight": 30
+        },
+        {
+            "bite_id": 5,
+            "start_seconds": 78.284,
+            "end_seconds": 81.448,
+            "duration_seconds": 3.164,
+            "weight": 22
+        },
+        {
+            "bite_id": 6,
+            "start_seconds": 81.45,
+            "end_seconds": 86.083,
+            "duration_seconds": 4.633,
+            "weight": 23
+        },
+        {
+            "bite_id": 7,
+            "start_seconds": 86.888,
+            "end_seconds": 91.898,
+            "duration_seconds": 5.01,
+            "weight": 21
+        },
+        {
+            "bite_id": 8,
+            "start_seconds": 91.992,
+            "end_seconds": 96.864,
+            "duration_seconds": 4.872,
+            "weight": 19
+        },
+        {
+            "bite_id": 9,
+            "start_seconds": 106.674,
+            "end_seconds": 110.167,
+            "duration_seconds": 3.493,
+            "weight": 17
+        },
+        {
+            "bite_id": 10,
+            "start_seconds": 110.307,
+            "end_seconds": 118.188,
+            "duration_seconds": 7.881,
+            "weight": 20
+        },
+        {
+            "bite_id": 11,
+            "start_seconds": 120.287,
+            "end_seconds": 124.53,
+            "duration_seconds": 4.243,
+            "weight": 17
+        },
+        {
+            "bite_id": 12,
+            "start_seconds": 126.427,
+            "end_seconds": 129.282,
+            "duration_seconds": 2.855,
+            "weight": 14
+        },
+        {
+            "bite_id": 13,
+            "start_seconds": 132.9,
+            "end_seconds": 136.06,
+            "duration_seconds": 3.16,
+            "weight": 16
+        },
+        {
+            "bite_id": 14,
+            "start_seconds": 136.061,
+            "end_seconds": 140.72,
+            "duration_seconds": 4.659,
+            "weight": 11
+        },
+        {
+            "bite_id": 15,
+            "start_seconds": 141.124,
+            "end_seconds": 144.508,
+            "duration_seconds": 3.384,
+            "weight": 10
+        },
+        {
+            "bite_id": 16,
+            "start_seconds": 144.51,
+            "end_seconds": 149.051,
+            "duration_seconds": 4.541,
+            "weight": 16
+        },
+        {
+            "bite_id": 17,
+            "start_seconds": 154.455,
+            "end_seconds": 158.407,
+            "duration_seconds": 3.952,
+            "weight": 12
+        },
+        {
+            "bite_id": 18,
+            "start_seconds": 158.409,
+            "end_seconds": 162.883,
+            "duration_seconds": 4.474,
+            "weight": 10
+        },
+        {
+            "bite_id": 19,
+            "start_seconds": 170.096,
+            "end_seconds": 172.759,
+            "duration_seconds": 2.663,
+            "weight": 10
+        },
+        {
+            "bite_id": 20,
+            "start_seconds": 174.082,
+            "end_seconds": 177.38,
+            "duration_seconds": 3.298,
+            "weight": 12
+        },
+        {
+            "bite_id": 21,
+            "start_seconds": 180.381,
+            "end_seconds": 183.096,
+            "duration_seconds": 2.715,
+            "weight": 8
+        },
+        {
+            "bite_id": 22,
+            "start_seconds": 183.097,
+            "end_seconds": 186.769,
+            "duration_seconds": 3.672,
+            "weight": 4
+        },
+        {
+            "bite_id": 23,
+            "start_seconds": 186.77,
+            "end_seconds": 192.341,
+            "duration_seconds": 5.571,
+            "weight": 6
+        },
+        {
+            "bite_id": 24,
+            "start_seconds": 196.163,
+            "end_seconds": 198.866,
+            "duration_seconds": 2.703,
+            "weight": 9
+        },
+        {
+            "bite_id": 25,
+            "start_seconds": 198.867,
+            "end_seconds": 204.777,
+            "duration_seconds": 5.91,
+            "weight": 11
+        },
+        {
+            "bite_id": 26,
+            "start_seconds": 204.778,
+            "end_seconds": 209.906,
+            "duration_seconds": 5.128,
+            "weight": 6
+        },
+        {
+            "bite_id": 27,
+            "start_seconds": 209.907,
+            "end_seconds": 213.03,
+            "duration_seconds": 3.123,
+            "weight": 9
+        },
+        {
+            "bite_id": 28,
+            "start_seconds": 213.031,
+            "end_seconds": 216.696,
+            "duration_seconds": 3.665,
+            "weight": 16
+        },
+        {
+            "bite_id": 29,
+            "start_seconds": 228.76,
+            "end_seconds": 232.006,
+            "duration_seconds": 3.246,
+            "weight": 7
+        },
+        {
+            "bite_id": 30,
+            "start_seconds": 234.902,
+            "end_seconds": 237.524,
+            "duration_seconds": 2.622,
+            "weight": 3
+        },
+        {
+            "bite_id": 31,
+            "start_seconds": 239.878,
+            "end_seconds": 242.053,
+            "duration_seconds": 2.175,
+            "weight": 3
+        },
+        {
+            "bite_id": 32,
+            "start_seconds": 244.931,
+            "end_seconds": 246.788,
+            "duration_seconds": 1.857,
+            "weight": 1
+        },
+        {
+            "bite_id": 33,
+            "start_seconds": 249.334,
+            "end_seconds": 252.192,
+            "duration_seconds": 2.858,
+            "weight": 1
+        },
+        {
+            "bite_id": 34,
+            "start_seconds": 252.193,
+            "end_seconds": 256.487,
+            "duration_seconds": 4.294,
+            "weight": 1
+        }
+    ]
+}

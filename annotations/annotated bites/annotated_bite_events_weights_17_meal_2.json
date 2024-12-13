@@ -1,0 +1,201 @@
+{
+    "subject_id": "17_meal_2",
+    "bites": [
+        {
+            "bite_id": 1,
+            "start_seconds": 53.939,
+            "end_seconds": 60.911,
+            "duration_seconds": 6.972,
+            "weight": 21
+        },
+        {
+            "bite_id": 2,
+            "start_seconds": 67.152,
+            "end_seconds": 85.136,
+            "duration_seconds": 17.984,
+            "weight": 10
+        },
+        {
+            "bite_id": 3,
+            "start_seconds": 91.041,
+            "end_seconds": 101.353,
+            "duration_seconds": 10.312,
+            "weight": 23
+        },
+        {
+            "bite_id": 4,
+            "start_seconds": 117.384,
+            "end_seconds": 123.458,
+            "duration_seconds": 6.074,
+            "weight": 18
+        },
+        {
+            "bite_id": 5,
+            "start_seconds": 135.986,
+            "end_seconds": 141.96,
+            "duration_seconds": 5.974,
+            "weight": 24
+        },
+        {
+            "bite_id": 6,
+            "start_seconds": 157.157,
+            "end_seconds": 168.035,
+            "duration_seconds": 10.878,
+            "weight": 21
+        },
+        {
+            "bite_id": 7,
+            "start_seconds": 186.221,
+            "end_seconds": 191.091,
+            "duration_seconds": 4.87,
+            "weight": 25
+        },
+        {
+            "bite_id": 8,
+            "start_seconds": 211.313,
+            "end_seconds": 215.934,
+            "duration_seconds": 4.621,
+            "weight": 18
+        },
+        {
+            "bite_id": 9,
+            "start_seconds": 229.297,
+            "end_seconds": 237.338,
+            "duration_seconds": 8.041,
+            "weight": 15
+        },
+        {
+            "bite_id": 10,
+            "start_seconds": 248.532,
+            "end_seconds": 254.155,
+            "duration_seconds": 5.623,
+            "weight": 18
+        },
+        {
+            "bite_id": 11,
+            "start_seconds": 270.454,
+            "end_seconds": 276.394,
+            "duration_seconds": 5.94,
+            "weight": 21
+        },
+        {
+            "bite_id": 12,
+            "start_seconds": 283.901,
+            "end_seconds": 290.207,
+            "duration_seconds": 6.306,
+            "weight": 25
+        },
+        {
+            "bite_id": 13,
+            "start_seconds": 298.733,
+            "end_seconds": 306.64,
+            "duration_seconds": 7.907,
+            "weight": 20
+        },
+        {
+            "bite_id": 14,
+            "start_seconds": 318.319,
+            "end_seconds": 322.691,
+            "duration_seconds": 4.372,
+            "weight": 15
+        },
+        {
+            "bite_id": 15,
+            "start_seconds": 329.714,
+            "end_seconds": 335.92,
+            "duration_seconds": 6.206,
+            "weight": 26
+        },
+        {
+            "bite_id": 16,
+            "start_seconds": 359.393,
+            "end_seconds": 365.833,
+            "duration_seconds": 6.44,
+            "weight": 29
+        },
+        {
+            "bite_id": 17,
+            "start_seconds": 385.42,
+            "end_seconds": 388.556,
+            "duration_seconds": 3.136,
+            "weight": 4
+        },
+        {
+            "bite_id": 18,
+            "start_seconds": 388.573,
+            "end_seconds": 396.88,
+            "duration_seconds": 8.307,
+            "weight": 24
+        },
+        {
+            "bite_id": 19,
+            "start_seconds": 404.456,
+            "end_seconds": 415.466,
+            "duration_seconds": 11.01,
+            "weight": 17
+        },
+        {
+            "bite_id": 20,
+            "start_seconds": 429.546,
+            "end_seconds": 433.751,
+            "duration_seconds": 4.205,
+            "weight": 25
+        },
+        {
+            "bite_id": 21,
+            "start_seconds": 446.197,
+            "end_seconds": 454.571,
+            "duration_seconds": 8.374,
+            "weight": 29
+        },
+        {
+            "bite_id": 22,
+            "start_seconds": 464.249,
+            "end_seconds": 475.593,
+            "duration_seconds": 11.344,
+            "weight": 25
+        },
+        {
+            "bite_id": 23,
+            "start_seconds": 480.231,
+            "end_seconds": 482.749,
+            "duration_seconds": 2.518,
+            "weight": null
+        },
+        {
+            "bite_id": 24,
+            "start_seconds": 489.274,
+            "end_seconds": 496.997,
+            "duration_seconds": 7.723,
+            "weight": 8
+        },
+        {
+            "bite_id": 25,
+            "start_seconds": 497.015,
+            "end_seconds": 507.941,
+            "duration_seconds": 10.926,
+            "weight": 16
+        },
+        {
+            "bite_id": 26,
+            "start_seconds": 513.246,
+            "end_seconds": 522.589,
+            "duration_seconds": 9.343,
+            "weight": 15
+        },
+        {
+            "bite_id": 27,
+            "start_seconds": 529.247,
+            "end_seconds": 534.668,
+            "duration_seconds": 5.421,
+            "weight": 6
+        },
+        {
+            "bite_id": 28,
+            "start_seconds": 537.538,
+            "end_seconds": 542.91,
+            "duration_seconds": 5.372,
+            "weight": 4
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "total_sessions": 26,
+    "unique_subjects": 23,
+    "total_recording_duration": 34591.406520000004,
+    "average_session_duration": 1330.4387123076922,
+    "std_session_duration": 656.3459437990742,
+    "median_session_duration": 1337.929575,
+    "average_sampling_rate": 51.84510377724644,
+    "std_sampling_rate": 1.078082956826591,
+    "total_samples": 1800416
+}
